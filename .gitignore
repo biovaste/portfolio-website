@@ -1,0 +1,9 @@
+# Project planning docs — stay in the income folder, not the public repo
+content-notes.md
+content-draft-v1.md
+project-plan.md
+TASK-3-BUILD.md
+process-diary.md
+
+# Claude config
+.claude/

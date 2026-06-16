@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Henri Haukkovaara — Marketing &amp; Ecommerce Specialist</title>
+  <meta name="description" content="Marketing and ecommerce specialist with a background in organizational leadership and international commercial operations. Working in Finnish, French, and English.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Henri Haukkovaara — Marketing &amp; Ecommerce Specialist">
+  <meta property="og:description" content="Marketing and ecommerce specialist with a background in organizational leadership and international commercial operations. Working in Finnish, French, and English.">
+  <meta property="og:url" content="https://henri.hithitpull.fi/">
+  <meta property="og:image" content="https://henri.hithitpull.fi/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Henri Haukkovaara — Marketing &amp; Ecommerce Specialist. FI / FR / EN.">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Henri Haukkovaara — Marketing &amp; Ecommerce Specialist">
+  <meta name="twitter:description" content="Marketing and ecommerce specialist with a background in organizational leadership and international commercial operations. Working in Finnish, French, and English.">
+  <meta name="twitter:image" content="https://henri.hithitpull.fi/og-image.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      /* Surfaces */
+      --bg: #111110;
+      --card-bg: #161614;
+      --card-border: #2C2C2A;
+
+      /* Text */
+      --text: #D4D0C8;        /* body, readable but not max-contrast */
+      --text-strong: #EDEAE2; /* headings / name */
+      --text-dim: #8A8780;    /* nav, meta, captions */
+
+      /* Accent — lavender, used sparingly */
+      --accent-border: #A8A4F2;
+      --accent-text: #C4C0F8;
+      --accent-glow: #8B86E0;
+
+      /* Status */
+      --status-dot: #5FD08A;
+
+      --border-hover: #3A3A37;
+
+      --maxw: 920px;
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      background-image: radial-gradient(110% 70% at 50% -8%, rgba(255, 255, 255, 0.04), transparent 55%);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .wrap {
+      max-width: var(--maxw);
+      margin: 0 auto;
+      padding: 0 52px;
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 0 22px; }
+    }
+
+    /* ---- Navigation ---- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(17, 17, 16, 0.78);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid transparent;
+    }
+    .nav__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 18px 52px;
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
+    @media (max-width: 640px) {
+      .nav__inner { padding: 16px 22px; }
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .status__dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--status-dot);
+      box-shadow: 0 0 0 0 rgba(95, 208, 138, 0.5);
+      animation: pulse 2.6s infinite;
+    }
+    @keyframes pulse {
+      0%   { box-shadow: 0 0 0 0 rgba(95, 208, 138, 0.45); }
+      70%  { box-shadow: 0 0 0 7px rgba(95, 208, 138, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(95, 208, 138, 0); }
+    }
+    .nav__links {
+      display: flex;
+      gap: 26px;
+      font-size: 14px;
+    }
+    .nav__links a {
+      color: var(--text-dim);
+      transition: color 0.18s ease;
+    }
+    .nav__links a:hover { color: var(--accent-text); }
+
+    @media (max-width: 600px) {
+      .nav__links { display: none; }
+    }
+
+    /* ---- Hero card ---- */
+    .hero {
+      min-height: calc(100vh - 60px);
+      display: flex;
+      align-items: center;
+      padding-top: 48px;
+      padding-bottom: 16px;
+    }
+    .hero__card {
+      position: relative;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 72px 64px;
+      overflow: hidden;
+    }
+    /* ambient lavender corner glow — used once */
+    .hero__card::before {
+      content: "";
+      position: absolute;
+      top: -160px;
+      right: -160px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(139, 134, 224, 0.22) 0%, rgba(139, 134, 224, 0) 70%);
+      pointer-events: none;
+    }
+    .hero__inner { position: relative; }
+
+    .hero__name {
+      font-size: 52px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      color: var(--text-strong);
+      margin: 0;
+    }
+
+    .pill {
+      display: inline-block;
+      margin-top: 26px;
+      padding: 6px 16px;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--accent-text);
+      border: 1px solid var(--accent-border);
+      border-radius: 999px;
+    }
+
+    .hero__lead {
+      max-width: 60ch;
+      margin: 30px 0 0;
+      font-size: 18px;
+      color: var(--text);
+    }
+
+    @media (max-width: 640px) {
+      .hero__card { padding: 48px 28px; }
+      .hero__name { font-size: 38px; }
+      .hero__lead { font-size: 17px; }
+    }
+
+    /* ---- Section scaffolding ---- */
+    .section { padding-top: 64px; padding-bottom: 64px; }
+    .section__head {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+    .section__num {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.04em;
+    }
+    .section__title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text-strong);
+      margin: 0;
+      white-space: nowrap;
+    }
+    .section__head::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--card-border);
+    }
+
+    /* ---- Work history carousel ---- */
+    .work__tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 22px;
+    }
+    .work__tab {
+      appearance: none;
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      color: var(--text-dim);
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      padding: 6px 14px;
+      transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    }
+    .work__tab:hover { color: var(--text); }
+    .work__tab[aria-selected="true"] {
+      color: var(--text-strong);
+      border-color: #3A3A37;
+      background: #1C1C19;
+    }
+
+    .work__viewport { position: relative; }
+    .work__panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 40px 44px;
+      display: none;
+      animation: fade 0.32s ease;
+    }
+    .work__panel.is-active { display: block; }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .work__meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .work__era {
+      font-size: 21px;
+      font-weight: 600;
+      color: var(--text-strong);
+      margin: 0;
+    }
+    .work__dates {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .work__subtitle {
+      font-size: 15px;
+      color: var(--accent-text);
+      margin: 0 0 18px;
+    }
+    .work__body {
+      margin: 0;
+      color: var(--text);
+    }
+
+    .work__controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .work__arrow {
+      appearance: none;
+      cursor: pointer;
+      font: inherit;
+      color: var(--text-dim);
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      transition: color 0.18s ease, border-color 0.18s ease;
+    }
+    .work__arrow:hover { color: var(--text-strong); border-color: #3A3A37; }
+    .work__progress {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-variant-numeric: tabular-nums;
+    }
+
+    @media (max-width: 640px) {
+      .work__panel { padding: 30px 24px; }
+      .work__era { font-size: 19px; }
+    }
+
+    /* ---- Case studies ---- */
+    .cases__list {
+      display: grid;
+      gap: 16px;
+    }
+    .case {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .case__summary {
+      list-style: none;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 30px 40px;
+      transition: background 0.18s ease;
+    }
+    .case__summary::-webkit-details-marker { display: none; }
+    .case__summary:hover { background: #1A1A17; }
+    .case[open] .case__summary { padding-bottom: 16px; }
+    .case__title {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text-strong);
+      margin: 0 0 4px;
+    }
+    .case__context {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-variant-numeric: tabular-nums;
+      margin: 0;
+    }
+    .case__chevron {
+      flex: none;
+      width: 22px;
+      height: 22px;
+      position: relative;
+      margin-top: 4px;
+      color: var(--text-dim);
+      transition: transform 0.25s ease, color 0.18s ease;
+    }
+    .case__summary:hover .case__chevron { color: var(--text); }
+    .case__chevron::before {
+      content: "";
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    /* flip the chevron up when open */
+    .case[open] .case__chevron { transform: rotate(180deg); }
+
+    .case__content { padding: 0 40px 34px; }
+    .case__body { margin: 0; color: var(--text); }
+    .case__body + .case__body { margin-top: 14px; }
+
+    @media (max-width: 640px) {
+      .case__summary { padding: 24px 22px; }
+      .case__content { padding: 0 22px 26px; }
+      .case__title { font-size: 18px; }
+    }
+
+    /* ---- Services ---- */
+    .services__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .service {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 34px 36px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .service:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .service__title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-strong);
+      margin: 0 0 14px;
+    }
+    .service__body { margin: 0; color: var(--text); font-size: 16px; }
+
+    @media (max-width: 720px) {
+      .services__grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .service { padding: 28px 22px; }
+    }
+
+    /* ---- AI & tech projects ---- */
+    .projects__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .project {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 30px 32px;
+      transition: border-color 0.2s ease, transform 0.2s ease;
+    }
+    .project:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+    .project--feature { grid-column: 1 / -1; }
+    .project__head {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 12px;
+    }
+    .project__title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-strong);
+      margin: 0;
+    }
+    .project__tag {
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-text);
+      border: 1px solid var(--accent-border);
+      border-radius: 999px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+    .project__body { margin: 0; color: var(--text); font-size: 15.5px; }
+
+    @media (max-width: 720px) {
+      .projects__grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .project { padding: 26px 22px; }
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      padding: 40px 0 64px;
+      color: var(--text-dim);
+      font-size: 13px;
+      text-align: center;
+    }
+
+    /* ---- Scroll reveal ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav__inner">
+      <span class="status">
+        <span class="status__dot" aria-hidden="true"></span>
+        Available for work
+      </span>
+      <nav class="nav__links" aria-label="Sections">
+        <a href="#work">Work</a>
+        <a href="#cases">Case studies</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-name">
+      <div class="hero__card">
+        <div class="hero__inner">
+          <h1 class="hero__name" id="hero-name">Henri Haukkovaara</h1>
+          <span class="pill">FI / FR / EN</span>
+          <p class="hero__lead">
+            I'm a marketing and ecommerce specialist with a background in organizational
+            leadership and international commercial operations. I work in Finnish, French,
+            and English, and have led digital growth projects across multiple markets and
+            industries, combining analytical systems thinking with hands-on execution —
+            from building ecommerce infrastructure to leading organizations through
+            significant change.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="work section wrap" id="work" aria-labelledby="work-title">
+      <div class="section__head">
+        <span class="section__num">01</span>
+        <h2 class="section__title" id="work-title">Work history</h2>
+      </div>
+
+      <div class="work__tabs" role="tablist" aria-label="Career eras">
+        <button class="work__tab" role="tab" aria-selected="true"  aria-controls="era-1" id="tab-1">Formation</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-2" id="tab-2">Cheerleading</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-3" id="tab-3">Hit Hit Pull</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-4" id="tab-4">Sportiro</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-5" id="tab-5">HAC: Building</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-6" id="tab-6">HAC: The Hard Part</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-7" id="tab-7">AQVA</button>
+      </div>
+
+      <div class="work__viewport">
+        <article class="work__panel is-active" role="tabpanel" id="era-1" aria-labelledby="tab-1">
+          <div class="work__meta">
+            <h3 class="work__era">Formation</h3>
+            <span class="work__dates">Helsinki &amp; France, 1986–2007</span>
+          </div>
+          <p class="work__subtitle">Two cultures, one perspective</p>
+          <p class="work__body">
+            I grew up moving between Finland and France, which meant I learned early that
+            different cultures aren't just different languages — they have different
+            operating systems. Finnish reliability became legible as a feature once I'd
+            seen it from the outside, and French culture showed me that life doesn't have
+            to go straight along the rails. By university I was studying marketing at Aalto
+            with social psychology alongside it, not by accident. I started reading
+            psychology in my twenties because I was already curious about how people work.
+            The formal study mostly put a framework on things I was already doing
+            instinctively, including staying calm when a situation calls for panic.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-2" aria-labelledby="tab-2" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">Cheerleading</h3>
+            <span class="work__dates">2007–present</span>
+          </div>
+          <p class="work__subtitle">Responsibility for outcomes you don't control</p>
+          <p class="work__body">
+            I came to cheerleading by chance in 2007. A friend introduced me, I tried it,
+            and within two years I was coaching junior teams. I had no formal coaching
+            training at the start and learned on the job, which meant my social skills did
+            a lot of the early work. What the sport taught me is a specific kind of
+            responsibility: as a coach, I am accountable for the safety of athletes doing
+            physically dangerous things, even though I'm not the one doing them. That
+            principle has applied in every leadership role since. I competed on the Finnish
+            National Team throughout, winning multiple European Championship gold medals
+            and World Championship medals. This spring the national team finished 5th at
+            the World Championships, and I captained my team to a 15th national championship
+            title. I grew as a coach in parallel, moved from club level to coaching across
+            Finland, coached the junior national team for two seasons, and spent a year
+            doing education and coaching for the national federation.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-3" aria-labelledby="tab-3" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">Hit Hit Pull</h3>
+            <span class="work__dates">2014–present</span>
+          </div>
+          <p class="work__subtitle">Learning what kind of worker I am</p>
+          <p class="work__body">
+            I started the company to invoice for competition music I was already making for
+            cheerleading teams. It grew into a practical vehicle for coaching gigs across
+            clubs. The music side I eventually shut down: it was too seasonal, licensing got
+            complicated, and I had hit a ceiling that would have required serious music
+            theory study to push through. I made a clean exit rather than grinding on
+            something that was not growing. The more useful lesson was about myself: I
+            thrive with structure and accountability around me. Going fully independent
+            before I was ready meant the sales and business-building work that needed to
+            happen mostly did not. The company still handles coaching invoicing today.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-4" aria-labelledby="tab-4" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">Sportiro</h3>
+            <span class="work__dates">2018–2021</span>
+          </div>
+          <p class="work__subtitle">Finding what I was good at</p>
+          <p class="work__body">
+            I joined Sportiro, a cheerleading equipment and apparel company, as a
+            generalist. The company had just acquired a digital printer and I ended up
+            leading that project. We eventually shut it down because we could not reach the
+            quality the product required — a clean exit that freed up attention for what I
+            was actually better suited for. I gradually took over the full marketing
+            function, migrated the webshop to Shopify, and led the growth of international
+            sales across the Nordics and Central Europe. That work involved localization,
+            competitor analysis, adapting delivery logistics for each market, and running
+            local Google advertising. We also attempted an expansion into Russia that ended
+            with COVID and sanctions. I left when a full-time coaching opportunity came up
+            that felt like a once-in-a-lifetime chance.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-5" aria-labelledby="tab-5" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">HAC: Building</h3>
+            <span class="work__dates">2021–2022</span>
+          </div>
+          <p class="work__subtitle">Culture before systems</p>
+          <p class="work__body">
+            I joined Helsinki Athletics Cheerleaders as a coach, started taking on
+            administrative work quickly, and pushed for the head coaching director role when
+            the previous director left. What I inherited was a fragmented post-COVID culture:
+            coaches focused on their own teams rather than the club as a whole. I started
+            with that, not with programs. One early call was shutting down the monthly
+            educational content for coaches because it was not reaching anyone. Before
+            rebuilding anything, I went back to ask whether coaches actually wanted it. From
+            that foundation I built systematic athlete testing, clearer career pathways,
+            compensation structures that made longer coaching careers possible, and
+            standardized planning tools across the club.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-6" aria-labelledby="tab-6" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">HAC: The Hard Part</h3>
+            <span class="work__dates">2022–2024</span>
+          </div>
+          <p class="work__subtitle">Fix it, then hand it over well</p>
+          <p class="work__body">
+            The club was in financial crisis when the executive director left. The account
+            was at risk of going negative mid-season. I agreed to take over temporarily,
+            worked the role alongside board members for a few months, and decided to stay
+            after seeing that I could have more impact than an outside hire who would need
+            months to understand the context. The root cause of the financial situation was
+            fixable: there was no real budget tracking, and the budget was built on athlete
+            numbers that were not grounded in anything. I built a cash flow system, changed
+            how budgets were constructed — based on current athletes and teams, not
+            projections — and moved to monthly member payments to smooth the club's income
+            and reduce the financial pressure on families around Christmas and August. I
+            restructured coaching accountability, changed the inventory model from holding
+            stock to a commission-based supplier arrangement, and spent two years reducing
+            what could go wrong. The workload was unsustainable from the start and I never
+            fully recovered from it. By the time the operational situation was stable, I had
+            learned something important about the limits of what one person can carry. When
+            I left, the club was stable, and the person I handed it to was exactly right for
+            what it needed next: someone to hold steady, not build.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-7" aria-labelledby="tab-7" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">AQVA</h3>
+            <span class="work__dates">2025–present</span>
+          </div>
+          <p class="work__subtitle">Systems and speed</p>
+          <p class="work__body">
+            I joined AQVA's ecommerce team through a training program and found familiar
+            ground quickly. My brief was improving ecommerce performance and working on the
+            brand's international launch. I had done an international launch before, at
+            Sportiro, so I could see immediately that the plan had gaps and the timeline was
+            optimistic. I fixed those first and worked toward a realistic picture of when
+            the launch could actually happen. I built data tracking systems where there were
+            none, became the internal go-to for questions about the Refox ERP and ecommerce
+            platform, and built AI-assisted workflows for tasks that were repetitive or
+            where quality could be meaningfully improved through automation. When the chatbot
+            provider was not delivering and not communicating about it, I pushed internally
+            for an ultimatum and, when they could not meet it, for a change of provider.
+          </p>
+        </article>
+      </div>
+
+      <div class="work__controls">
+        <button class="work__arrow" id="work-prev" type="button">← Previous</button>
+        <span class="work__progress" id="work-progress" aria-live="polite">1 / 7</span>
+        <button class="work__arrow" id="work-next" type="button">Next →</button>
+      </div>
+    </section>
+
+    <section class="cases section wrap" id="cases" aria-labelledby="cases-title">
+      <div class="section__head">
+        <span class="section__num">02</span>
+        <h2 class="section__title" id="cases-title">Case studies</h2>
+      </div>
+
+      <div class="cases__list">
+        <details class="case" open>
+          <summary class="case__summary">
+            <div>
+              <h3 class="case__title">Stabilizing a club in financial crisis</h3>
+              <p class="case__context">Helsinki Athletics Cheerleaders, 2022–2024</p>
+            </div>
+            <span class="case__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="case__content">
+          <p class="case__body">
+            When I took on the executive director role at Helsinki Athletics Cheerleaders,
+            the club's account was at risk of going negative mid-season. The previous
+            director had made a one-off payment to avert the most acute situation before
+            leaving. The natural response would have been to cut costs. Before doing
+            anything, I went looking for the root cause.
+          </p>
+          <p class="case__body">
+            It turned out the budget had no real tracking system and was built on projected
+            athlete numbers that were not grounded in any data. Nobody had a clear picture
+            of how cash actually moved through the season, most of it arriving in early
+            autumn and January from semi-annual membership payments.
+          </p>
+          <p class="case__body">
+            I built a cash flow tracking system that modeled the full season and made the
+            picture visible. Then I changed how budgets were built: based on current athlete
+            numbers and the teams the club would actually run, not on optimistic
+            projections. I made savings where possible without touching the core function. I
+            also restructured the payment model, moving from semi-annual payments to monthly
+            installments. That change smoothed the club's income curve and reduced the
+            financial pressure on member families around Christmas and August at the same
+            time.
+          </p>
+          <p class="case__body">
+            The club moved from financial crisis to stable operations. When I left, I handed
+            the role to an internal successor I had identified as the right fit for what the
+            club needed next.
+          </p>
+          </div>
+        </details>
+
+        <details class="case">
+          <summary class="case__summary">
+            <div>
+              <h3 class="case__title">Growing international sales from zero</h3>
+              <p class="case__context">Sportiro, 2018–2021</p>
+            </div>
+            <span class="case__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="case__content">
+          <p class="case__body">
+            When I joined Sportiro, a cheerleading equipment and apparel company,
+            international sales were informal — the occasional order from abroad, handled
+            case by case, with no structured approach to any market. By the time I left, the
+            company was selling systematically across the Nordics and Central Europe with a
+            localized presence in each market.
+          </p>
+          <p class="case__body">
+            The work involved more than translating the website. Each market needed its own
+            delivery logic, because the cost and reliability of shipping varied significantly
+            by country and affected conversion. I ran competitor analysis for each market to
+            understand the pricing and positioning landscape before we entered. I adapted the
+            Google advertising to run locally, in the language of each market. And I treated
+            localization as a commercial question, not a translation exercise — the tone and
+            framing that worked in Finland did not automatically work in Germany or France.
+          </p>
+          <p class="case__body">
+            The growth was significant. We also attempted an expansion into Russia during
+            this period, which ended when COVID and subsequent sanctions closed that market.
+            That outcome had nothing to do with the approach and everything to do with
+            circumstances, but it was a useful lesson in building commercial plans that
+            account for things outside your control.
+          </p>
+          </div>
+        </details>
+
+        <details class="case">
+          <summary class="case__summary">
+            <div>
+              <h3 class="case__title">Replacing a vendor who was not delivering</h3>
+              <p class="case__context">AQVA, 2025</p>
+            </div>
+            <span class="case__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="case__content">
+          <p class="case__body">
+            Shortly after joining AQVA, I was working with a new chatbot provider that had
+            been brought in to handle customer questions independently and reduce the load
+            on the customer service team. The tool they built was oriented toward lead
+            generation rather than customer support. They had not understood the brief, were
+            not delivering what was needed, and were communicating poorly about it.
+          </p>
+          <p class="case__body">
+            The straightforward path would have been to absorb the underperformance and
+            wait. Instead, I made the case internally that the situation needed to be
+            addressed directly. We issued a formal ultimatum with specific deliverables and a
+            deadline. When the provider could not meet it, I pushed for a change.
+          </p>
+          <p class="case__body">
+            The case for switching was not difficult to make once the ultimatum had been
+            issued and failed. The harder part was making the initial recommendation to
+            confront the situation at all, particularly when the relationship was new and the
+            change would create short-term disruption. The provider was replaced.
+          </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="services section wrap" id="services" aria-labelledby="services-title">
+      <div class="section__head">
+        <span class="section__num">03</span>
+        <h2 class="section__title" id="services-title">Services</h2>
+      </div>
+
+      <div class="services__grid">
+        <article class="service">
+          <h3 class="service__title">CRO &amp; Ecommerce Consulting</h3>
+          <p class="service__body">
+            I offer fixed-fee ecommerce audits for Finnish SME brands doing meaningful
+            online revenue. The audit identifies the highest-impact conversion and revenue
+            leakage points, delivers three prioritized fixes with implementation guidance,
+            and takes one week. No retainer commitment required to start. I also work with
+            agencies on a white-label basis.
+          </p>
+        </article>
+
+        <article class="service">
+          <h3 class="service__title">Multilingual Marketing Localization</h3>
+          <p class="service__body">
+            I work in Finnish, French, and English as a native or near-native speaker in all
+            three. Localization for marketing means adapting tone, register, and cultural
+            framing, not just translating words. I work with agencies and brands on
+            campaigns, product copy, and web content that needs to land correctly in more
+            than one language.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section class="projects section wrap" id="projects" aria-labelledby="projects-title">
+      <div class="section__head">
+        <span class="section__num">04</span>
+        <h2 class="section__title" id="projects-title">AI &amp; tech projects</h2>
+      </div>
+
+      <div class="projects__grid">
+        <article class="project project--feature">
+          <div class="project__head">
+            <h3 class="project__title">MM 2026 Veikkaajat</h3>
+          </div>
+          <p class="project__body">
+            A real-time score prediction web app for the 2026 FIFA World Cup, built solo
+            from scratch and used by a private group throughout the tournament. Stack:
+            Next.js, Supabase (Postgres, Row Level Security, Realtime), Vercel, and Supabase
+            Edge Functions with scheduled jobs. Features include magic link authentication
+            with admin-controlled invites, automatic result polling from external APIs every
+            30 minutes with Telegram group notifications, xG data alongside results, a
+            leaderboard with 12 computed statistics per player including custom metrics, a
+            Telegram bot with multiple commands and personalised pre-match reminders, and
+            live in-app chat via Supabase Realtime. Built with proper security practices
+            throughout.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project__head">
+            <h3 class="project__title">GymTrack</h3>
+          </div>
+          <p class="project__body">
+            A workout tracker built as an installable web app for iPhone, designed around
+            bidirectional data exchange with Claude. The app exports training history, body
+            weight, and the current plan in a structured format; Claude replies with a new
+            training plan in a defined JSON schema; the app imports it. No accounts, no
+            dependencies, no build step. Data lives on the device with optional sync to a
+            private GitHub Gist. Features include a rest timer, per-exercise history and PR
+            tracking, and full offline support via a service worker.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project__head">
+            <h3 class="project__title">Pet Shop Guy</h3>
+          </div>
+          <p class="project__body">
+            A live ecommerce lab. A pet-themed print-on-demand store where I test CRO
+            hypotheses, new tools, and conversion approaches in a real environment rather
+            than in theory. Launching summer 2026.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project__head">
+            <h3 class="project__title">This Portfolio</h3>
+            <span class="project__tag">This site</span>
+          </div>
+          <p class="project__body">
+            Built with Claude as a collaborative partner across design, content, and code.
+            The build process is the course deliverable for an AI Fluency program,
+            documenting how a non-developer uses AI tools to produce a production-quality
+            website from brief to deployment.
+          </p>
+        </article>
+
+        <article class="project">
+          <div class="project__head">
+            <h3 class="project__title">Skillztek.fi</h3>
+          </div>
+          <p class="project__body">
+            During COVID, helped build a concept for a modular cheerleading gym product.
+            Created the 3D models of a sample cheer gym as part of developing the product
+            vision.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer wrap">
+      <p>Henri Haukkovaara · Helsinki · FI / FR / EN</p>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      const tabs = Array.from(document.querySelectorAll('.work__tab'));
+      const panels = Array.from(document.querySelectorAll('.work__panel'));
+      const progress = document.getElementById('work-progress');
+      const prev = document.getElementById('work-prev');
+      const next = document.getElementById('work-next');
+      const total = tabs.length;
+      let current = 0;
+
+      function show(i) {
+        current = (i + total) % total;
+        tabs.forEach((tab, idx) => {
+          const active = idx === current;
+          tab.setAttribute('aria-selected', active ? 'true' : 'false');
+          panels[idx].classList.toggle('is-active', active);
+          if (active) { panels[idx].removeAttribute('hidden'); }
+          else { panels[idx].setAttribute('hidden', ''); }
+        });
+        progress.textContent = (current + 1) + ' / ' + total;
+      }
+
+      tabs.forEach((tab, idx) => {
+        tab.addEventListener('click', () => show(idx));
+      });
+      prev.addEventListener('click', () => show(current - 1));
+      next.addEventListener('click', () => show(current + 1));
+    })();
+
+    /* Scroll reveal */
+    (function () {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = document.querySelectorAll(
+        '.section__head, .work__viewport, .work__controls, .case, .service, .project, .footer'
+      );
+      if (reduce || !('IntersectionObserver' in window)) { return; }
+
+      targets.forEach(el => el.classList.add('reveal'));
+
+      const io = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+      targets.forEach(el => io.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
