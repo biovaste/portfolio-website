@@ -125,6 +125,9 @@
       -webkit-backdrop-filter: blur(10px);
       border-bottom: 1px solid transparent;
     }
+    @media (max-width: 600px) {
+      .nav { position: static; }
+    }
     .nav__inner {
       display: flex;
       align-items: center;
@@ -168,7 +171,10 @@
     }
     .nav__links a:hover { color: var(--accent-text); }
 
-    @media (max-width: 600px) {
+    @media (max-width: 920px) {
+      .nav__links { gap: 16px; }
+    }
+    @media (max-width: 780px) {
       .nav__links { display: none; }
     }
 
@@ -264,6 +270,23 @@
       background: var(--card-border);
     }
 
+    /* ---- About ---- */
+    .about__card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 40px 44px;
+    }
+    .about__body {
+      margin: 0;
+      color: var(--text);
+      max-width: 72ch;
+    }
+    .about__body + .about__body { margin-top: 16px; }
+    @media (max-width: 640px) {
+      .about__card { padding: 30px 24px; }
+    }
+
     /* ---- Work history carousel ---- */
     .work__tabs {
       display: flex;
@@ -323,6 +346,12 @@
       color: var(--text-dim);
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
+    }
+    .work__role {
+      font-size: 13px;
+      color: var(--text-dim);
+      margin: 2px 0 14px;
+      letter-spacing: 0.02em;
     }
     .work__subtitle {
       font-size: 15px;
@@ -514,6 +543,66 @@
       .project { padding: 26px 22px; }
     }
 
+    /* ---- Education ---- */
+    .education__list {
+      display: grid;
+      gap: 16px;
+    }
+    .edu {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 30px 36px;
+    }
+    .edu__head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 4px;
+    }
+    .edu__institution {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text-strong);
+      margin: 0;
+    }
+    .edu__years {
+      font-size: 13px;
+      color: var(--text-dim);
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .edu__degree {
+      font-size: 15px;
+      color: var(--accent-text);
+      margin: 0 0 0;
+    }
+    .edu__institution a {
+      color: inherit;
+      text-decoration: none;
+      border-bottom: 1px solid var(--card-border);
+      transition: border-color 0.18s ease;
+    }
+    .edu__institution a:hover { border-color: var(--accent-border); }
+    @media (max-width: 640px) {
+      .edu { padding: 24px 22px; }
+    }
+
+    /* ---- Hero contact ---- */
+    .hero__contact {
+      margin-top: 22px;
+      font-size: 14px;
+      color: var(--text-dim);
+    }
+    .hero__contact a {
+      color: var(--accent-text);
+      text-decoration: none;
+      transition: color 0.18s ease;
+    }
+    .hero__contact a:hover { text-decoration: underline; }
+
     /* ---- Footer ---- */
     .footer {
       padding: 40px 0 64px;
@@ -554,8 +643,10 @@
         Available for work
       </span>
       <nav class="nav__links" aria-label="Sections">
+        <a href="#about">About</a>
         <a href="#work">Work</a>
         <a href="#cases">Case studies</a>
+        <a href="#education">Education</a>
         <a href="#services">Services</a>
         <a href="#projects">Projects</a>
       </nav>
@@ -569,133 +660,82 @@
           <h1 class="hero__name" id="hero-name">Henri Haukkovaara</h1>
           <span class="pill">FI / FR / EN</span>
           <p class="hero__lead">
-            I'm a marketing and ecommerce specialist with a background in organizational
-            leadership and international commercial operations. I work in Finnish, French,
-            and English, and have led digital growth projects across multiple markets and
-            industries, combining analytical systems thinking with hands-on execution —
-            from building ecommerce infrastructure to leading organizations through
-            significant change.
+            Marketing and ecommerce specialist. Trilingual in Finnish, French, and English.
+            I work across ecommerce operations, conversion optimization, and multilingual
+            localization, and build AI-assisted workflows as a regular part of how I work.
+          </p>
+          <p class="hero__lead" style="margin-top:14px;">
+            Currently open to new roles and available for CRO audits and multilingual
+            localization consulting.
+          </p>
+          <p class="hero__contact">
+            <a href="mailto:henri.haukkovaara@gmail.com">henri.haukkovaara@gmail.com</a>
+            &nbsp;·&nbsp;
+            <a href="https://linkedin.com/in/henri-haukkovaara" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            &nbsp;·&nbsp;
+            <a href="https://github.com/biovaste" target="_blank" rel="noopener noreferrer">GitHub</a>
           </p>
         </div>
       </div>
     </section>
 
-    <section class="work section wrap" id="work" aria-labelledby="work-title">
+    <section class="about section wrap" id="about" aria-labelledby="about-title">
       <div class="section__head">
         <span class="section__num">01</span>
+        <h2 class="section__title" id="about-title">About</h2>
+      </div>
+      <div class="about__card">
+        <p class="about__body">
+          I'm a generalist who connects dots across fields. My deepest interest is in
+          problems that are harder than they look — where genuinely understanding what's
+          going on matters more than moving fast. Fifteen years of coaching in elite-level
+          cheerleading have shaped how I think about accountability, trust, and leading
+          people through situations where the stakes are real. I've run my own company
+          since 2014. I do my best work when the outcome is concrete and the
+          accountability is clear.
+        </p>
+        <p class="about__body">
+          Outside work: competitive cheerleading and sports, cooking, video games, and anime.
+        </p>
+      </div>
+    </section>
+
+    <section class="work section wrap" id="work" aria-labelledby="work-title">
+      <div class="section__head">
+        <span class="section__num">02</span>
         <h2 class="section__title" id="work-title">Work history</h2>
       </div>
 
       <div class="work__tabs" role="tablist" aria-label="Career eras">
-        <button class="work__tab" role="tab" aria-selected="true"  aria-controls="era-1" id="tab-1">Formation</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-2" id="tab-2">Cheerleading</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-3" id="tab-3">Hit Hit Pull</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-4" id="tab-4">Sportiro</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-5" id="tab-5">HAC: Building</button>
+        <button class="work__tab" role="tab" aria-selected="true"  aria-controls="era-7" id="tab-7">AQVA</button>
         <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-6" id="tab-6">HAC: The Hard Part</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-7" id="tab-7">AQVA</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-5" id="tab-5">HAC: Building</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-4" id="tab-4">Sportiro</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-3" id="tab-3">Hit Hit Pull</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-2" id="tab-2">Cheerleading</button>
+        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-1" id="tab-1">Formation</button>
       </div>
 
       <div class="work__viewport">
-        <article class="work__panel is-active" role="tabpanel" id="era-1" aria-labelledby="tab-1">
+        <article class="work__panel is-active" role="tabpanel" id="era-7" aria-labelledby="tab-7">
           <div class="work__meta">
-            <h3 class="work__era">Formation</h3>
-            <span class="work__dates">Helsinki &amp; France, 1986–2007</span>
+            <h3 class="work__era">AQVA</h3>
+            <span class="work__dates">2025–present</span>
           </div>
-          <p class="work__subtitle">Two cultures, one perspective</p>
+          <p class="work__role">E-Commerce Specialist</p>
+          <p class="work__subtitle">Systems and speed</p>
           <p class="work__body">
-            I grew up moving between Finland and France, which meant I learned early that
-            different cultures aren't just different languages — they have different
-            operating systems. Finnish reliability became legible as a feature once I'd
-            seen it from the outside, and French culture showed me that life doesn't have
-            to go straight along the rails. By university I was studying marketing at Aalto
-            with social psychology alongside it, not by accident. I started reading
-            psychology in my twenties because I was already curious about how people work.
-            The formal study mostly put a framework on things I was already doing
-            instinctively, including staying calm when a situation calls for panic.
-          </p>
-        </article>
-
-        <article class="work__panel" role="tabpanel" id="era-2" aria-labelledby="tab-2" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">Cheerleading</h3>
-            <span class="work__dates">2007–present</span>
-          </div>
-          <p class="work__subtitle">Responsibility for outcomes you don't control</p>
-          <p class="work__body">
-            I came to cheerleading by chance in 2007. A friend introduced me, I tried it,
-            and within two years I was coaching junior teams. I had no formal coaching
-            training at the start and learned on the job, which meant my social skills did
-            a lot of the early work. What the sport taught me is a specific kind of
-            responsibility: as a coach, I am accountable for the safety of athletes doing
-            physically dangerous things, even though I'm not the one doing them. That
-            principle has applied in every leadership role since. I competed on the Finnish
-            National Team throughout, winning multiple European Championship gold medals
-            and World Championship medals. This spring the national team finished 5th at
-            the World Championships, and I captained my team to a 15th national championship
-            title. I grew as a coach in parallel, moved from club level to coaching across
-            Finland, coached the junior national team for two seasons, and spent a year
-            doing education and coaching for the national federation.
-          </p>
-        </article>
-
-        <article class="work__panel" role="tabpanel" id="era-3" aria-labelledby="tab-3" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">Hit Hit Pull</h3>
-            <span class="work__dates">2014–present</span>
-          </div>
-          <p class="work__subtitle">Learning what kind of worker I am</p>
-          <p class="work__body">
-            I started the company to invoice for competition music I was already making for
-            cheerleading teams. It grew into a practical vehicle for coaching gigs across
-            clubs. The music side I eventually shut down: it was too seasonal, licensing got
-            complicated, and I had hit a ceiling that would have required serious music
-            theory study to push through. I made a clean exit rather than grinding on
-            something that was not growing. The more useful lesson was about myself: I
-            thrive with structure and accountability around me. Going fully independent
-            before I was ready meant the sales and business-building work that needed to
-            happen mostly did not. The company still handles coaching invoicing today.
-          </p>
-        </article>
-
-        <article class="work__panel" role="tabpanel" id="era-4" aria-labelledby="tab-4" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">Sportiro</h3>
-            <span class="work__dates">2018–2021</span>
-          </div>
-          <p class="work__subtitle">Finding what I was good at</p>
-          <p class="work__body">
-            I joined Sportiro, a cheerleading equipment and apparel company, as a
-            generalist. The company had just acquired a digital printer and I ended up
-            leading that project. We eventually shut it down because we could not reach the
-            quality the product required — a clean exit that freed up attention for what I
-            was actually better suited for. I gradually took over the full marketing
-            function, migrated the webshop to Shopify, and led the growth of international
-            sales across the Nordics and Central Europe. That work involved localization,
-            competitor analysis, adapting delivery logistics for each market, and running
-            local Google advertising. We also attempted an expansion into Russia that ended
-            with COVID and sanctions. I left when a full-time coaching opportunity came up
-            that felt like a once-in-a-lifetime chance.
-          </p>
-        </article>
-
-        <article class="work__panel" role="tabpanel" id="era-5" aria-labelledby="tab-5" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">HAC: Building</h3>
-            <span class="work__dates">2021–2022</span>
-          </div>
-          <p class="work__subtitle">Culture before systems</p>
-          <p class="work__body">
-            I joined Helsinki Athletics Cheerleaders as a coach, started taking on
-            administrative work quickly, and pushed for the head coaching director role when
-            the previous director left. What I inherited was a fragmented post-COVID culture:
-            coaches focused on their own teams rather than the club as a whole. I started
-            with that, not with programs. One early call was shutting down the monthly
-            educational content for coaches because it was not reaching anyone. Before
-            rebuilding anything, I went back to ask whether coaches actually wanted it. From
-            that foundation I built systematic athlete testing, clearer career pathways,
-            compensation structures that made longer coaching careers possible, and
-            standardized planning tools across the club.
+            I joined AQVA's ecommerce team through a specialist training program and found
+            familiar ground quickly. My brief was improving ecommerce performance and working
+            on the brand's international launch. I had done an international launch before,
+            at Sportiro, so I could see immediately that the plan had gaps and the timeline
+            was optimistic. I fixed those first and worked toward a realistic picture of when
+            the launch could actually happen. I built data tracking systems where there were
+            none, became the internal go-to for questions about the Refox ERP and ecommerce
+            platform, and built AI-assisted workflows for tasks that were repetitive or
+            where quality could be meaningfully improved through automation. When the chatbot
+            provider was not delivering and not communicating about it, I pushed internally
+            for an ultimatum and, when they could not meet it, for a change of provider.
           </p>
         </article>
 
@@ -704,6 +744,7 @@
             <h3 class="work__era">HAC: The Hard Part</h3>
             <span class="work__dates">2022–2024</span>
           </div>
+          <p class="work__role">Executive Director</p>
           <p class="work__subtitle">Fix it, then hand it over well</p>
           <p class="work__body">
             The club was in financial crisis when the executive director left. The account
@@ -726,24 +767,110 @@
           </p>
         </article>
 
-        <article class="work__panel" role="tabpanel" id="era-7" aria-labelledby="tab-7" hidden>
+        <article class="work__panel" role="tabpanel" id="era-5" aria-labelledby="tab-5" hidden>
           <div class="work__meta">
-            <h3 class="work__era">AQVA</h3>
-            <span class="work__dates">2025–present</span>
+            <h3 class="work__era">HAC: Building</h3>
+            <span class="work__dates">2021–2022</span>
           </div>
-          <p class="work__subtitle">Systems and speed</p>
+          <p class="work__role">Head of Coaching</p>
+          <p class="work__subtitle">Culture before systems</p>
           <p class="work__body">
-            I joined AQVA's ecommerce team through a training program and found familiar
-            ground quickly. My brief was improving ecommerce performance and working on the
-            brand's international launch. I had done an international launch before, at
-            Sportiro, so I could see immediately that the plan had gaps and the timeline was
-            optimistic. I fixed those first and worked toward a realistic picture of when
-            the launch could actually happen. I built data tracking systems where there were
-            none, became the internal go-to for questions about the Refox ERP and ecommerce
-            platform, and built AI-assisted workflows for tasks that were repetitive or
-            where quality could be meaningfully improved through automation. When the chatbot
-            provider was not delivering and not communicating about it, I pushed internally
-            for an ultimatum and, when they could not meet it, for a change of provider.
+            I joined Helsinki Athletics Cheerleaders as a coach, started taking on
+            administrative work quickly, and pushed for the head coaching director role when
+            the previous director left. What I inherited was a fragmented post-COVID culture:
+            coaches focused on their own teams rather than the club as a whole. I started
+            with that, not with programs. One early call was shutting down the monthly
+            educational content for coaches because it was not reaching anyone. Before
+            rebuilding anything, I went back to ask whether coaches actually wanted it. From
+            that foundation I built systematic athlete testing, clearer career pathways,
+            compensation structures that made longer coaching careers possible, and
+            standardized planning tools across the club.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-4" aria-labelledby="tab-4" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">Sportiro</h3>
+            <span class="work__dates">2018–2021</span>
+          </div>
+          <p class="work__role">Marketing Manager</p>
+          <p class="work__subtitle">Finding what I was good at</p>
+          <p class="work__body">
+            I joined Sportiro, a cheerleading equipment and apparel company, as a generalist
+            and gradually took ownership of the full marketing function. The move happened
+            by doing: I was the person in the room who understood both the sport and the
+            commercial side, and the responsibilities accumulated from there. I migrated the
+            webshop to Shopify, led the growth of international sales across the Nordics and
+            Central Europe, and handled the localization, competitor analysis, delivery
+            logistics, and local advertising that each market required. We also attempted an
+            expansion into Russia during this period, which ended when COVID and subsequent
+            sanctions closed that market. I left when a full-time coaching opportunity came
+            up that felt like a once-in-a-lifetime chance.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-3" aria-labelledby="tab-3" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">Hit Hit Pull</h3>
+            <span class="work__dates">2014–present</span>
+          </div>
+          <p class="work__role">Founder</p>
+          <p class="work__subtitle">Learning what kind of worker I am</p>
+          <p class="work__body">
+            I started the company to invoice for competition music I was already making for
+            cheerleading teams. It grew into a practical vehicle for coaching gigs across
+            clubs, including international work in Sweden, Russia, Belarus, France, Italy,
+            and Austria. The music side I eventually shut down: it was too seasonal,
+            licensing got complicated, and I had hit a ceiling that would have required
+            serious music theory study to push through. I made a clean exit rather than
+            grinding on something that was not growing. The more useful lesson was about
+            myself: I thrive with structure and accountability around me. Going fully
+            independent before I was ready meant the sales and business-building work that
+            needed to happen mostly did not. The company still handles coaching invoicing
+            today.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-2" aria-labelledby="tab-2" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">Cheerleading</h3>
+            <span class="work__dates">2007–present</span>
+          </div>
+          <p class="work__role">Athlete &amp; Coach</p>
+          <p class="work__subtitle">Responsibility for outcomes you don't control</p>
+          <p class="work__body">
+            I came to cheerleading by chance in 2007. A friend introduced me, I tried it,
+            and within two years I was coaching junior teams. I had no formal coaching
+            training at the start and learned on the job, which meant my social skills did
+            a lot of the early work. What the sport taught me is a specific kind of
+            responsibility: as a coach, I am accountable for the safety of athletes doing
+            physically dangerous things, even though I'm not the one doing them. That
+            principle has applied in every leadership role since. I competed on the Finnish
+            National Team throughout, winning multiple European Championship gold medals
+            and World Championship medals. This spring the national team finished 5th at
+            the World Championships, and I captained my team to a 15th national championship
+            title. I grew as a coach in parallel, moved from club level to coaching across
+            Finland, coached the junior national team for two seasons, and spent a year
+            doing education and coaching for the national federation.
+          </p>
+        </article>
+
+        <article class="work__panel" role="tabpanel" id="era-1" aria-labelledby="tab-1" hidden>
+          <div class="work__meta">
+            <h3 class="work__era">Formation</h3>
+            <span class="work__dates">Helsinki &amp; France, 1986–2007</span>
+          </div>
+          <p class="work__subtitle">Two cultures, one perspective</p>
+          <p class="work__body">
+            I grew up moving between Finland and France, which meant I learned early that
+            different cultures aren't just different languages — they have different
+            operating systems. Finnish reliability became legible as a feature once I'd
+            seen it from the outside, and French culture showed me that life doesn't have
+            to go straight along the rails. By university I was studying marketing at Aalto
+            with social psychology alongside it, not by accident. I started reading
+            psychology in my twenties because I was already curious about how people work.
+            The formal study mostly put a framework on things I was already doing
+            instinctively, including staying calm when a situation calls for panic.
           </p>
         </article>
       </div>
@@ -757,7 +884,7 @@
 
     <section class="cases section wrap" id="cases" aria-labelledby="cases-title">
       <div class="section__head">
-        <span class="section__num">02</span>
+        <span class="section__num">03</span>
         <h2 class="section__title" id="cases-title">Case studies</h2>
       </div>
 
@@ -870,9 +997,39 @@
       </div>
     </section>
 
+    <section class="education section wrap" id="education" aria-labelledby="education-title">
+      <div class="section__head">
+        <span class="section__num">04</span>
+        <h2 class="section__title" id="education-title">Education</h2>
+      </div>
+      <div class="education__list">
+        <div class="edu">
+          <div class="edu__head">
+            <h3 class="edu__institution">Aalto University School of Business</h3>
+            <span class="edu__years">2016</span>
+          </div>
+          <p class="edu__degree">BBA, Marketing (major) · Leadership &amp; Management (minor)</p>
+        </div>
+        <div class="edu">
+          <div class="edu__head">
+            <h3 class="edu__institution"><a href="https://www.saranen.fi/tyonhakijalle/toihin-koulutuksesta/ecommerce-academy-uusimaa" target="_blank" rel="noopener noreferrer">Saranen eCommerce Academy</a></h3>
+            <span class="edu__years">2025</span>
+          </div>
+          <p class="edu__degree">Ecommerce Specialist Program</p>
+        </div>
+        <div class="edu">
+          <div class="edu__head">
+            <h3 class="edu__institution">Liikunnan ja valmennuksen ammattitutkinto</h3>
+            <span class="edu__years">2022</span>
+          </div>
+          <p class="edu__degree">Further Vocational Qualification in Physical Education and Coaching · Coaching specialisation</p>
+        </div>
+      </div>
+    </section>
+
     <section class="services section wrap" id="services" aria-labelledby="services-title">
       <div class="section__head">
-        <span class="section__num">03</span>
+        <span class="section__num">05</span>
         <h2 class="section__title" id="services-title">Services</h2>
       </div>
 
@@ -903,7 +1060,7 @@
 
     <section class="projects section wrap" id="projects" aria-labelledby="projects-title">
       <div class="section__head">
-        <span class="section__num">04</span>
+        <span class="section__num">06</span>
         <h2 class="section__title" id="projects-title">AI &amp; tech projects</h2>
       </div>
 
