@@ -1089,12 +1089,15 @@
           </div>
           <p class="project__body">
             A workout tracker built as an installable web app for iPhone, designed around
-            bidirectional data exchange with Claude. The app exports training history, body
-            weight, and the current plan in a structured format; Claude replies with a new
-            training plan in a defined JSON schema; the app imports it. No accounts, no
-            dependencies, no build step. Data lives on the device with optional sync to a
-            private GitHub Gist. Features include a rest timer, per-exercise history and PR
-            tracking, and full offline support via a service worker.
+            a coaching loop with Claude. One button copies your last 15 sessions, body
+            weight, and current plan into a prompt; Claude replies with a structured
+            training plan; the app imports it. Automatic cloud sync via a private GitHub
+            Gist means Claude can read your live data directly — no copy-paste needed. A
+            desktop push tool writes new plans straight to the Gist; the phone picks them
+            up on next launch. Features include exercise alternates for swapping
+            mid-workout, a rest timer with audio cue, estimated-1RM sparklines,
+            per-exercise history and PR detection, body weight log, session notes, and
+            full offline support. No accounts, no dependencies, no build step.
           </p>
         </article>
 
