@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AutoSlide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Playfair+Display:wght@400;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a0a;
+    --surface: #111;
+    --border: #222;
+    --accent: #c8a96e;
+    --accent2: #7eb8c8;
+    --text: #e8e0d5;
+    --text-dim: #666;
+    --radius: 4px;
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    overflow: hidden;
+  }
+
+  /* ─── SETUP SCREEN ─── */
+  #setup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 0;
+    position: relative;
+  }
+
+  #setup::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 40%, rgba(200,169,110,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 60% at 75% 65%, rgba(126,184,200,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.15em;
+  }
+
+  .brand span { color: var(--accent); }
+
+  .tagline {
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+  }
+
+  .setup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2.5rem 3rem;
+    width: min(480px, 90vw);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .setup-card h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--accent);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  label {
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .row { display: flex; gap: 0.75rem; align-items: center; }
+
+  input[type="number"], select {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.85rem;
+    padding: 0.55rem 0.75rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  input[type="number"]:focus, select:focus { border-color: var(--accent); }
+  select option { background: #1a1a1a; }
+
+  .unit {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+
+  .btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    background: var(--accent);
+    color: #0a0a0a;
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.85rem 1.5rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    text-transform: uppercase;
+  }
+  .btn-primary:hover { background: #d4b87c; transform: translateY(-1px); }
+  .btn-primary:active { transform: translateY(0); }
+
+  .note {
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+  .note strong { color: var(--accent2); }
+
+  .back-link {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--text); }
+
+  /* ─── SLIDESHOW SCREEN ─── */
+  #slideshow {
+    display: none;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    overflow: hidden;
+  }
+
+  .slide-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  .slide-img.active { opacity: 1; }
+
+  /* Ken Burns effect */
+  .slide-img.kb { animation: kenburns 12s ease-out forwards; }
+  @keyframes kenburns {
+    from { transform: scale(1); }
+    to   { transform: scale(1.06) translate(1%, 0.5%); }
+  }
+
+  /* HUD */
+  #hud {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.5rem 2rem;
+    background: linear-gradient(transparent, rgba(0,0,0,0.7));
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    opacity: 0;
+    transition: opacity 0.3s;
+    z-index: 10;
+  }
+  #slideshow:hover #hud { opacity: 1; }
+
+  .hud-left { display: flex; flex-direction: column; gap: 0.25rem; }
+
+  #filename {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.9);
+    max-width: 40vw;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  #counter {
+    font-size: 0.62rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.1em;
+  }
+
+  .hud-controls {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .ctrl-btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: var(--radius);
+    color: rgba(255,255,255,0.8);
+    cursor: pointer;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    padding: 0.4rem 0.8rem;
+    transition: all 0.15s;
+    backdrop-filter: blur(8px);
+    letter-spacing: 0.05em;
+  }
+  .ctrl-btn:hover { background: rgba(255,255,255,0.2); color: #fff; }
+  .ctrl-btn.danger { border-color: rgba(200,100,100,0.4); color: rgba(255,160,160,0.8); }
+  .ctrl-btn.danger:hover { background: rgba(200,80,80,0.2); }
+
+  #pause-icon { font-size: 0.85rem; }
+
+  /* Progress bar */
+  #progress-bar {
+    position: absolute;
+    bottom: 0; left: 0;
+    height: 2px;
+    background: var(--accent);
+    width: 0%;
+    z-index: 20;
+    transition: none;
+  }
+
+  /* New photo badge */
+  #new-badge {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    background: var(--accent);
+    color: #000;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 2rem;
+    z-index: 30;
+    opacity: 0;
+    transform: translateY(-0.5rem);
+    transition: all 0.4s;
+    pointer-events: none;
+  }
+  #new-badge.show { opacity: 1; transform: translateY(0); }
+
+  /* Empty state */
+  #empty {
+    display: none;
+    position: absolute;
+    inset: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    background: var(--bg);
+  }
+  #empty.visible { display: flex; }
+  #empty p { color: var(--text-dim); font-size: 0.8rem; letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<!-- ═══ SETUP ═══ -->
+<div id="setup">
+  <a class="back-link" href="/">← henri.hithitpull.fi</a>
+  <div class="brand">Auto<span>Slide</span></div>
+  <div class="tagline">Automatic Photo Slideshow — Windows</div>
+
+  <div class="setup-card">
+    <h2>// configuration</h2>
+
+    <div class="field">
+      <label>Slide Duration</label>
+      <div class="row">
+        <input type="number" id="duration" value="5" min="1" max="300">
+        <span class="unit">seconds per photo</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Folder Check Interval</label>
+      <div class="row">
+        <input type="number" id="interval" value="10" min="2" max="600">
+        <span class="unit">seconds</span>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Transition Style</label>
+      <select id="transition">
+        <option value="fade">Fade</option>
+        <option value="kenburns" selected>Ken Burns (slow zoom)</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Order</label>
+      <select id="order">
+        <option value="sequential">Sequential (filename)</option>
+        <option value="shuffle">Shuffle (random)</option>
+        <option value="newest">Newest first</option>
+      </select>
+    </div>
+
+    <button class="btn-primary" id="openBtn">
+      <span>📁</span> Choose Photo Folder & Start
+    </button>
+
+    <p class="note">
+      Works entirely offline — no uploads, no install.<br>
+      <strong>Chrome / Edge on Windows recommended</strong> for folder watching.<br>
+      New photos added to the folder appear automatically.
+    </p>
+  </div>
+</div>
+
+<!-- ═══ SLIDESHOW ═══ -->
+<div id="slideshow">
+  <img class="slide-img" id="imgA">
+  <img class="slide-img" id="imgB">
+
+  <div id="progress-bar"></div>
+  <div id="new-badge">✦ new photo</div>
+
+  <div id="empty">
+    <p>📂 No images found in this folder.</p>
+    <p>Add photos and they'll appear shortly.</p>
+  </div>
+
+  <div id="hud">
+    <div class="hud-left">
+      <div id="filename">—</div>
+      <div id="counter">0 / 0</div>
+    </div>
+    <div class="hud-controls">
+      <button class="ctrl-btn" id="prevBtn">← prev</button>
+      <button class="ctrl-btn" id="pauseBtn"><span id="pause-icon">⏸</span> <span id="pause-label">pause</span></button>
+      <button class="ctrl-btn" id="nextBtn">next →</button>
+      <button class="ctrl-btn danger" id="exitBtn">✕ exit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────────────────────────
+let dirHandle = null;
+let images = [];           // { name, handle }
+let currentIndex = 0;
+let paused = false;
+let slideTimer = null;
+let progressTimer = null;
+let checkTimer = null;
+let progressStart = null;
+let progressElapsed = 0;   // ms already spent on this slide
+let activeSlot = 'A';      // which img element is visible
+let knownNames = new Set();
+let newBadgeTimer = null;
+
+let cfg = {};
+
+const imgA = document.getElementById('imgA');
+const imgB = document.getElementById('imgB');
+const progressBar = document.getElementById('progress-bar');
+const newBadge = document.getElementById('new-badge');
+const filenameEl = document.getElementById('filename');
+const counterEl = document.getElementById('counter');
+const emptyEl = document.getElementById('empty');
+
+const EXTS = new Set(['jpg','jpeg','png','gif','webp','bmp','avif','svg']);
+
+// ─── Setup ───────────────────────────────────────────────────────────────────
+document.getElementById('openBtn').addEventListener('click', async () => {
+  try {
+    dirHandle = await window.showDirectoryPicker({ mode: 'read' });
+  } catch { return; }
+
+  cfg = {
+    duration: Math.max(1, +document.getElementById('duration').value) * 1000,
+    interval: Math.max(2, +document.getElementById('interval').value) * 1000,
+    transition: document.getElementById('transition').value,
+    order: document.getElementById('order').value,
+  };
+
+  document.getElementById('setup').style.display = 'none';
+  document.getElementById('slideshow').style.display = 'block';
+
+  await loadImages(true);
+  startShow();
+  scheduleCheck();
+});
+
+// ─── Load / refresh images ───────────────────────────────────────────────────
+async function loadImages(initial = false) {
+  const found = [];
+  for await (const [name, handle] of dirHandle.entries()) {
+    if (handle.kind === 'file') {
+      const ext = name.split('.').pop().toLowerCase();
+      if (EXTS.has(ext)) found.push({ name, handle });
+    }
+  }
+
+  // Sort
+  if (cfg.order === 'shuffle') {
+    found.sort(() => Math.random() - 0.5);
+  } else if (cfg.order === 'newest') {
+    // sort by name desc as proxy (true mtime needs File API)
+    found.sort((a, b) => b.name.localeCompare(a.name));
+  } else {
+    found.sort((a, b) => a.name.localeCompare(b.name));
+  }
+
+  // Detect new additions
+  if (!initial) {
+    let hasNew = false;
+    for (const f of found) {
+      if (!knownNames.has(f.name)) { hasNew = true; break; }
+    }
+    if (hasNew) showNewBadge();
+  }
+
+  knownNames = new Set(found.map(f => f.name));
+  images = found;
+  updateEmpty();
+}
+
+function updateEmpty() {
+  emptyEl.classList.toggle('visible', images.length === 0);
+}
+
+// ─── Slideshow ───────────────────────────────────────────────────────────────
+async function startShow() {
+  if (images.length === 0) return;
+  currentIndex = Math.min(currentIndex, images.length - 1);
+  await showSlide(currentIndex);
+  startSlideTimer();
+}
+
+async function showSlide(idx) {
+  if (images.length === 0) return;
+  currentIndex = ((idx % images.length) + images.length) % images.length;
+  const img = images[currentIndex];
+
+  filenameEl.textContent = img.name;
+  counterEl.textContent = `${currentIndex + 1} / ${images.length}`;
+
+  // Load blob URL
+  let url;
+  try {
+    const file = await img.handle.getFile();
+    url = URL.createObjectURL(file);
+  } catch { return; }
+
+  const incoming = activeSlot === 'A' ? imgB : imgA;
+  const outgoing = activeSlot === 'A' ? imgA : imgB;
+
+  incoming.src = url;
+  incoming.onload = () => {
+    if (cfg.transition === 'kenburns') {
+      incoming.classList.remove('kb');
+      void incoming.offsetWidth; // reflow
+      incoming.classList.add('kb');
+    }
+    incoming.classList.add('active');
+    outgoing.classList.remove('active', 'kb');
+    setTimeout(() => { if (outgoing.src) URL.revokeObjectURL(outgoing.src); }, 1000);
+    activeSlot = activeSlot === 'A' ? 'B' : 'A';
+  };
+}
+
+function startSlideTimer(remaining = cfg.duration) {
+  clearTimers();
+  progressElapsed = cfg.duration - remaining;
+  progressStart = performance.now();
+  animateProgress(remaining);
+
+  if (!paused) {
+    slideTimer = setTimeout(async () => {
+      await showSlide(currentIndex + 1);
+      startSlideTimer();
+    }, remaining);
+  }
+}
+
+function animateProgress(totalMs) {
+  const start = performance.now();
+  const barStart = (progressElapsed / cfg.duration) * 100;
+
+  function tick() {
+    const elapsed = performance.now() - start;
+    const pct = Math.min(100, barStart + (elapsed / cfg.duration) * 100);
+    progressBar.style.width = pct + '%';
+    if (pct < 100 && !paused) {
+      progressTimer = requestAnimationFrame(tick);
+    }
+  }
+  progressTimer = requestAnimationFrame(tick);
+}
+
+function clearTimers() {
+  clearTimeout(slideTimer);
+  cancelAnimationFrame(progressTimer);
+}
+
+// ─── Controls ────────────────────────────────────────────────────────────────
+document.getElementById('prevBtn').addEventListener('click', async () => {
+  clearTimers();
+  progressBar.style.width = '0%';
+  await showSlide(currentIndex - 1);
+  startSlideTimer();
+});
+
+document.getElementById('nextBtn').addEventListener('click', async () => {
+  clearTimers();
+  progressBar.style.width = '0%';
+  await showSlide(currentIndex + 1);
+  startSlideTimer();
+});
+
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  paused = !paused;
+  document.getElementById('pause-icon').textContent = paused ? '▶' : '⏸';
+  document.getElementById('pause-label').textContent = paused ? 'resume' : 'pause';
+
+  if (paused) {
+    const elapsed = performance.now() - progressStart + progressElapsed;
+    progressElapsed = elapsed;
+    clearTimers();
+  } else {
+    const remaining = Math.max(0, cfg.duration - progressElapsed);
+    startSlideTimer(remaining);
+  }
+});
+
+document.getElementById('exitBtn').addEventListener('click', () => {
+  clearTimers();
+  clearInterval(checkTimer);
+  document.getElementById('slideshow').style.display = 'none';
+  document.getElementById('setup').style.display = 'flex';
+  images = [];
+  knownNames = new Set();
+  progressBar.style.width = '0%';
+  activeSlot = 'A';
+  imgA.src = imgB.src = '';
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+  if (document.getElementById('slideshow').style.display !== 'block') return;
+  if (e.key === 'ArrowRight') document.getElementById('nextBtn').click();
+  if (e.key === 'ArrowLeft') document.getElementById('prevBtn').click();
+  if (e.key === ' ') { e.preventDefault(); document.getElementById('pauseBtn').click(); }
+  if (e.key === 'Escape') document.getElementById('exitBtn').click();
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+// ─── Folder watching ─────────────────────────────────────────────────────────
+function scheduleCheck() {
+  checkTimer = setInterval(async () => {
+    const before = images.length;
+    await loadImages(false);
+    // If new images arrived and we were stalled (empty), restart
+    if (before === 0 && images.length > 0) startShow();
+  }, cfg.interval);
+}
+
+// ─── New badge ───────────────────────────────────────────────────────────────
+function showNewBadge() {
+  newBadge.classList.add('show');
+  clearTimeout(newBadgeTimer);
+  newBadgeTimer = setTimeout(() => newBadge.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>

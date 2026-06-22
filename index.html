@@ -535,6 +535,14 @@
       white-space: nowrap;
     }
     .project__body { margin: 0; color: var(--text); font-size: 15.5px; }
+    .project__tag--link {
+      text-decoration: none;
+      transition: background 0.18s ease, color 0.18s ease;
+    }
+    .project__tag--link:hover {
+      background: var(--accent-border);
+      color: var(--bg);
+    }
 
     @media (max-width: 720px) {
       .projects__grid { grid-template-columns: 1fr; }
@@ -1116,16 +1124,18 @@
           </p>
         </article>
 
-        <article class="project">
+<article class="project">
           <div class="project__head">
-            <h3 class="project__title">This Portfolio</h3>
-            <span class="project__tag">This site</span>
+            <h3 class="project__title">AutoSlide</h3>
+            <a class="project__tag project__tag--link" href="/autoslide.html" target="_blank" rel="noopener noreferrer">Try it →</a>
           </div>
           <p class="project__body">
-            Built with Claude as a collaborative partner across design, content, and code.
-            The build process is the course deliverable for an AI Fluency program,
-            documenting how a non-developer uses AI tools to produce a production-quality
-            website from brief to deployment.
+            A full-screen photo slideshow that watches a local folder and picks up new photos
+            automatically — built for my 40th birthday party, where guests added photos via a
+            Dropbox QR code and saw them appear on screen in real time. No install, no upload,
+            no subscription. One HTML file opened in Chrome. Born from a half-hour search for
+            an app that didn't exist, solved in two minutes by asking AI to build it instead.
+            Requires Chrome or Edge on desktop.
           </p>
         </article>
 
