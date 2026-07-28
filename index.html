@@ -35,12 +35,12 @@
   -->
 
   <title>Henri Haukkovaara — Marketing &amp; Ecommerce Specialist</title>
-  <meta name="description" content="Marketing and ecommerce specialist with a background in organizational leadership and international commercial operations. Working in Finnish, French, and English.">
+  <meta name="description" content="I build the systems behind ecommerce and marketing operations: analytics, conversion optimization, AI automation, and multilingual localization. Working in Finnish, French, and English.">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Henri Haukkovaara — Marketing &amp; Ecommerce Specialist">
-  <meta property="og:description" content="Marketing and ecommerce specialist with a background in organizational leadership and international commercial operations. Working in Finnish, French, and English.">
+  <meta property="og:description" content="I build the systems behind ecommerce and marketing operations: analytics, conversion optimization, AI automation, and multilingual localization. Working in Finnish, French, and English.">
   <meta property="og:url" content="https://henri.hithitpull.fi/">
   <meta property="og:image" content="https://henri.hithitpull.fi/og-image.png">
   <meta property="og:image:width" content="1200">
@@ -50,7 +50,7 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Henri Haukkovaara — Marketing &amp; Ecommerce Specialist">
-  <meta name="twitter:description" content="Marketing and ecommerce specialist with a background in organizational leadership and international commercial operations. Working in Finnish, French, and English.">
+  <meta name="twitter:description" content="I build the systems behind ecommerce and marketing operations: analytics, conversion optimization, AI automation, and multilingual localization. Working in Finnish, French, and English.">
   <meta name="twitter:image" content="https://henri.hithitpull.fi/og-image.png">
 
   <link rel="canonical" href="https://henri.hithitpull.fi/">
@@ -235,10 +235,54 @@
       color: var(--text);
     }
 
+    .hero__caps {
+      margin: 20px 0 0;
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      color: var(--text-dim);
+    }
+
+    /* proof strip — first thing a skimming reader can use */
+    .hero__highlights {
+      margin: 30px 0 0;
+      padding: 22px 0 0;
+      border-top: 1px solid var(--card-border);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px 32px;
+      list-style: none;
+    }
+    .hero__highlight {
+      position: relative;
+      padding-left: 18px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .hero__highlight::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.62em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-border);
+    }
+
     @media (max-width: 640px) {
       .hero__card { padding: 48px 28px; }
       .hero__name { font-size: 38px; }
       .hero__lead { font-size: 17px; }
+      .hero__highlights { grid-template-columns: 1fr; gap: 10px; }
+    }
+
+    /* short laptop screens: tighten so the highlights stay above the fold */
+    @media (min-width: 641px) and (max-height: 800px) {
+      .hero { padding-top: 24px; }
+      .hero__card { padding: 48px 64px; }
+      .hero__lead { margin-top: 22px; }
+      .hero__highlights { margin-top: 24px; padding-top: 18px; }
     }
 
     /* ---- Section scaffolding ---- */
@@ -363,6 +407,45 @@
       color: var(--text);
     }
 
+    /* scannable callout — used on the panels carrying the most weight */
+    .panel__highlights {
+      margin: 0 0 20px;
+      padding: 18px 0 0;
+      border-top: 1px solid var(--card-border);
+    }
+    .panel__highlights-label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .panel__highlights ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 7px;
+    }
+    .panel__highlights li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 15.5px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .panel__highlights li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.6em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent-border);
+    }
+
     .work__controls {
       display: flex;
       align-items: center;
@@ -460,38 +543,6 @@
       .case__summary { padding: 24px 22px; }
       .case__content { padding: 0 22px 26px; }
       .case__title { font-size: 18px; }
-    }
-
-    /* ---- Services ---- */
-    .services__grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .service {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius);
-      padding: 34px 36px;
-      transition: border-color 0.2s ease, transform 0.2s ease;
-    }
-    .service:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-2px);
-    }
-    .service__title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text-strong);
-      margin: 0 0 14px;
-    }
-    .service__body { margin: 0; color: var(--text); font-size: 16px; }
-
-    @media (max-width: 720px) {
-      .services__grid { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 640px) {
-      .service { padding: 28px 22px; }
     }
 
     /* ---- AI & tech projects ---- */
@@ -654,9 +705,8 @@
         <a href="#about">About</a>
         <a href="#work">Work</a>
         <a href="#cases">Case studies</a>
-        <a href="#education">Education</a>
-        <a href="#services">Services</a>
         <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
       </nav>
     </div>
   </header>
@@ -668,13 +718,25 @@
           <h1 class="hero__name" id="hero-name">Henri Haukkovaara</h1>
           <span class="pill">FI / FR / EN</span>
           <p class="hero__lead">
-            Marketing and ecommerce specialist. Trilingual in Finnish, French, and English.
-            I work across ecommerce operations, conversion optimization, and multilingual
-            localization, and build AI-assisted workflows as a regular part of how I work.
+            I build the systems behind ecommerce and marketing operations: analytics,
+            conversion optimization, AI automation, and multilingual localization.
           </p>
           <p class="hero__lead" style="margin-top:14px;">
-            Currently open to new roles and available for CRO audits and multilingual
-            localization consulting.
+            Across every role I have had, the work has been the same shape. Find the
+            bottleneck everyone has accepted as normal, then build something that removes it.
+          </p>
+          <p class="hero__caps">
+            Marketing operations &nbsp;·&nbsp; Ecommerce &amp; CRO &nbsp;·&nbsp; AI automation
+            &nbsp;·&nbsp; Analytics &nbsp;·&nbsp; Localization
+          </p>
+          <ul class="hero__highlights">
+            <li class="hero__highlight">Four production AI and automation tools built at AQVA</li>
+            <li class="hero__highlight">Google Ads conversion rate +66% at Sportiro, on 29% fewer impressions</li>
+            <li class="hero__highlight">Led a Shopify migration and international expansion across the Nordics and Central Europe</li>
+            <li class="hero__highlight">Executive Director of a EUR 1M+ organization through a financial turnaround</li>
+          </ul>
+          <p class="hero__contact" style="margin-top:26px;">
+            Currently open to new roles.
           </p>
           <p class="hero__contact">
             <a href="mailto:henri.haukkovaara@gmail.com">henri.haukkovaara@gmail.com</a>
@@ -698,8 +760,16 @@
       </div>
       <div class="about__card">
         <p class="about__body">
+          I work where marketing, ecommerce, and operations meet. In practice that means
+          purchase funnel and customer behavior analysis, conversion optimization,
+          ecommerce platform and ERP systems, AI-assisted automation, and marketing
+          localization across Finnish, French, and English. I own the full loop: I find
+          the development need, decide what to build and where, and take it to production
+          without a separate implementer.
+        </p>
+        <p class="about__body">
           I'm a generalist who connects dots across fields. My deepest interest is in
-          problems that are harder than they look — where genuinely understanding what's
+          problems that are harder than they look, where genuinely understanding what's
           going on matters more than moving fast. Fifteen years of coaching in elite-level
           cheerleading have shaped how I think about accountability, trust, and leading
           people through situations where the stakes are real. I've run my own company
@@ -736,18 +806,28 @@
           </div>
           <p class="work__role">E-Commerce Specialist</p>
           <p class="work__subtitle">Systems and speed</p>
+          <div class="panel__highlights">
+            <span class="panel__highlights-label">Highlights</span>
+            <ul>
+              <li>Google Search Console reporting and automation across five domains</li>
+              <li>ERP workflow automation built with Playwright</li>
+              <li>Customer service ticket pipeline feeding a RAG chatbot</li>
+              <li>Data scraper replacing a manual collection process</li>
+              <li>Internal go-to for the Refox ERP and ecommerce platform</li>
+            </ul>
+          </div>
           <p class="work__body">
             I joined AQVA's ecommerce team through a specialist training program and found
             familiar ground quickly. My brief was improving ecommerce performance and working
             on the brand's international launch. I had done an international launch before,
             at Sportiro, so I could see immediately that the plan had gaps and the timeline
             was optimistic. I fixed those first and worked toward a realistic picture of when
-            the launch could actually happen. I built data tracking systems where there were
-            none, became the internal go-to for questions about the Refox ERP and ecommerce
-            platform, and built AI-assisted workflows for tasks that were repetitive or
-            where quality could be meaningfully improved through automation. When the chatbot
-            provider was not delivering and not communicating about it, I pushed internally
-            for an ultimatum and, when they could not meet it, for a change of provider.
+            the launch could actually happen. The four production tools above came out of the
+            same habit: organic search data sat scattered across five domains until it became
+            one view anyone could make decisions from, and steps people were doing by hand in
+            the ERP became a workflow that runs unattended. When the chatbot provider was not
+            delivering and not communicating about it, I pushed internally for an ultimatum
+            and, when they could not meet it, for a change of provider.
           </p>
         </article>
 
@@ -758,6 +838,15 @@
           </div>
           <p class="work__role">Executive Director</p>
           <p class="work__subtitle">Fix it, then hand it over well</p>
+          <div class="panel__highlights">
+            <span class="panel__highlights-label">Highlights</span>
+            <ul>
+              <li>EUR 1M+ annual budget, around 80 coaches and staff across 20+ competition teams</li>
+              <li>Season-long cash flow tracking system built from nothing</li>
+              <li>Budgeting rebuilt on actual athlete numbers instead of projections</li>
+              <li>Members moved from semi-annual to monthly payments</li>
+            </ul>
+          </div>
           <p class="work__body">
             The club was in financial crisis when the executive director left. The account
             was at risk of going negative mid-season. I agreed to take over temporarily,
@@ -807,6 +896,15 @@
           </div>
           <p class="work__role">Marketing Manager</p>
           <p class="work__subtitle">Finding what I was good at</p>
+          <div class="panel__highlights">
+            <span class="panel__highlights-label">Highlights</span>
+            <ul>
+              <li>Google Ads conversion rate +66%, conversions +40%, impressions down 29%</li>
+              <li>Led the webshop migration to Shopify</li>
+              <li>International sales across the Nordics and Central Europe built from near zero</li>
+              <li>Email marketing owned end to end in Mailchimp</li>
+            </ul>
+          </div>
           <p class="work__body">
             I joined Sportiro, a cheerleading equipment and apparel company, as a generalist
             and gradually took ownership of the full marketing function. The move happened
@@ -1009,70 +1107,9 @@
       </div>
     </section>
 
-    <section class="education section wrap" id="education" aria-labelledby="education-title">
-      <div class="section__head">
-        <span class="section__num">04</span>
-        <h2 class="section__title" id="education-title">Education</h2>
-      </div>
-      <div class="education__list">
-        <div class="edu">
-          <div class="edu__head">
-            <h3 class="edu__institution">Aalto University School of Business</h3>
-            <span class="edu__years">2016</span>
-          </div>
-          <p class="edu__degree">BBA, Marketing (major) · Leadership &amp; Management (minor)</p>
-        </div>
-        <div class="edu">
-          <div class="edu__head">
-            <h3 class="edu__institution"><a href="https://www.saranen.fi/tyonhakijalle/toihin-koulutuksesta/ecommerce-academy-uusimaa" target="_blank" rel="noopener noreferrer">Saranen eCommerce Academy</a></h3>
-            <span class="edu__years">2025</span>
-          </div>
-          <p class="edu__degree">Ecommerce Specialist Program</p>
-        </div>
-        <div class="edu">
-          <div class="edu__head">
-            <h3 class="edu__institution">Liikunnan ja valmennuksen ammattitutkinto</h3>
-            <span class="edu__years">2022</span>
-          </div>
-          <p class="edu__degree">Further Vocational Qualification in Physical Education and Coaching · Coaching specialisation</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="services section wrap" id="services" aria-labelledby="services-title">
-      <div class="section__head">
-        <span class="section__num">05</span>
-        <h2 class="section__title" id="services-title">Services</h2>
-      </div>
-
-      <div class="services__grid">
-        <article class="service">
-          <h3 class="service__title">CRO &amp; Ecommerce Consulting</h3>
-          <p class="service__body">
-            I offer fixed-fee ecommerce audits for Finnish SME brands doing meaningful
-            online revenue. The audit identifies the highest-impact conversion and revenue
-            leakage points, delivers three prioritized fixes with implementation guidance,
-            and takes one week. No retainer commitment required to start. I also work with
-            agencies on a white-label basis.
-          </p>
-        </article>
-
-        <article class="service">
-          <h3 class="service__title">Multilingual Marketing Localization</h3>
-          <p class="service__body">
-            I work in Finnish, French, and English as a native or near-native speaker in all
-            three. Localization for marketing means adapting tone, register, and cultural
-            framing, not just translating words. I work with agencies and brands on
-            campaigns, product copy, and web content that needs to land correctly in more
-            than one language.
-          </p>
-        </article>
-      </div>
-    </section>
-
     <section class="projects section wrap" id="projects" aria-labelledby="projects-title">
       <div class="section__head">
-        <span class="section__num">06</span>
+        <span class="section__num">04</span>
         <h2 class="section__title" id="projects-title">AI &amp; tech projects</h2>
       </div>
 
@@ -1152,6 +1189,36 @@
       </div>
     </section>
 
+    <section class="education section wrap" id="education" aria-labelledby="education-title">
+      <div class="section__head">
+        <span class="section__num">05</span>
+        <h2 class="section__title" id="education-title">Education</h2>
+      </div>
+      <div class="education__list">
+        <div class="edu">
+          <div class="edu__head">
+            <h3 class="edu__institution">Aalto University School of Business</h3>
+            <span class="edu__years">2016</span>
+          </div>
+          <p class="edu__degree">BBA, Marketing (major) · Leadership &amp; Management (minor)</p>
+        </div>
+        <div class="edu">
+          <div class="edu__head">
+            <h3 class="edu__institution"><a href="https://www.saranen.fi/tyonhakijalle/toihin-koulutuksesta/ecommerce-academy-uusimaa" target="_blank" rel="noopener noreferrer">Saranen eCommerce Academy</a></h3>
+            <span class="edu__years">2025</span>
+          </div>
+          <p class="edu__degree">Ecommerce Specialist Program</p>
+        </div>
+        <div class="edu">
+          <div class="edu__head">
+            <h3 class="edu__institution">Liikunnan ja valmennuksen ammattitutkinto</h3>
+            <span class="edu__years">2022</span>
+          </div>
+          <p class="edu__degree">Further Vocational Qualification in Physical Education and Coaching · Coaching specialisation</p>
+        </div>
+      </div>
+    </section>
+
     <footer class="footer wrap">
       <p>Henri Haukkovaara · Helsinki · FI / FR / EN · <a href="https://linkedin.com/in/henri-haukkovaara" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
     </footer>
@@ -1190,7 +1257,7 @@
     (function () {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const targets = document.querySelectorAll(
-        '.section__head, .work__viewport, .work__controls, .case, .service, .project, .footer'
+        '.section__head, .work__viewport, .work__controls, .case, .project, .edu, .footer'
       );
       if (reduce || !('IntersectionObserver' in window)) { return; }
 
