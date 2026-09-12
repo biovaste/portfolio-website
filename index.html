@@ -332,80 +332,121 @@
     }
 
     /* ---- Work history carousel ---- */
-    .work__tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-bottom: 22px;
+    .work__timeline {
+      display: grid;
+      gap: 14px;
+      position: relative;
+      padding-left: 26px;
     }
-    .work__tab {
-      appearance: none;
-      cursor: pointer;
-      font: inherit;
-      font-size: 13px;
-      color: var(--text-dim);
-      background: transparent;
-      border: 1px solid var(--card-border);
-      border-radius: 999px;
-      padding: 6px 14px;
-      transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+    /* the rail the entries hang from */
+    .work__timeline::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 12px;
+      bottom: 12px;
+      width: 1px;
+      background: var(--card-border);
     }
-    .work__tab:hover { color: var(--text); }
-    .work__tab[aria-selected="true"] {
-      color: var(--text-strong);
-      border-color: #3A3A37;
-      background: #1C1C19;
-    }
-
-    .work__viewport { position: relative; }
-    .work__panel {
+    .era {
+      position: relative;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: var(--radius);
-      padding: 40px 44px;
-      display: none;
-      animation: fade 0.32s ease;
+      transition: border-color 0.2s ease;
     }
-    .work__panel.is-active { display: block; }
-    @keyframes fade {
-      from { opacity: 0; transform: translateY(6px); }
-      to   { opacity: 1; transform: translateY(0); }
+    .era:hover { border-color: var(--border-hover); }
+    .era::before {
+      content: "";
+      position: absolute;
+      left: -25px;
+      top: 30px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1px solid #3A3A37;
+      transition: background 0.2s ease, border-color 0.2s ease;
     }
-    .work__meta {
+    .era[open]::before { background: var(--accent-border); border-color: var(--accent-border); }
+
+    .era__summary {
+      list-style: none;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      column-gap: 20px;
+      padding: 24px 34px;
+      border-radius: calc(var(--radius) - 1px);
+      transition: background 0.18s ease;
+    }
+    .era__summary::-webkit-details-marker { display: none; }
+    .era__summary:hover { background: #1A1A17; }
+    .era[open] .era__summary {
+      padding-bottom: 14px;
+      border-radius: calc(var(--radius) - 1px) calc(var(--radius) - 1px) 0 0;
+    }
+
+    .era__ident {
       display: flex;
       align-items: baseline;
-      justify-content: space-between;
-      gap: 16px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin-bottom: 4px;
     }
-    .work__era {
-      font-size: 21px;
+    .era__name {
+      font-size: 19px;
       font-weight: 600;
       color: var(--text-strong);
       margin: 0;
     }
-    .work__dates {
+    .era__dates {
       font-size: 13px;
       color: var(--text-dim);
       font-variant-numeric: tabular-nums;
       white-space: nowrap;
     }
-    .work__role {
+    .era__role {
+      grid-column: 1;
       font-size: 13px;
       color: var(--text-dim);
-      margin: 2px 0 14px;
       letter-spacing: 0.02em;
+      margin: 4px 0 0;
     }
-    .work__subtitle {
+    .era__line {
+      grid-column: 1;
       font-size: 15px;
       color: var(--accent-text);
-      margin: 0 0 18px;
+      margin: 8px 0 0;
     }
-    .work__body {
-      margin: 0;
-      color: var(--text);
+    .era__chevron {
+      grid-column: 2;
+      grid-row: 1 / -1;
+      align-self: start;
+      flex: none;
+      width: 22px;
+      height: 22px;
+      position: relative;
+      margin-top: 2px;
+      color: var(--text-dim);
+      transition: transform 0.25s ease, color 0.18s ease;
     }
+    .era__summary:hover .era__chevron { color: var(--text); }
+    .era__chevron::before {
+      content: "";
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      width: 8px;
+      height: 8px;
+      border-right: 1.5px solid currentColor;
+      border-bottom: 1.5px solid currentColor;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    .era[open] .era__chevron { transform: rotate(180deg); }
+
+    .era__content { padding: 0 34px 30px; }
+    .era__body { margin: 0; color: var(--text); }
+    .era__body + .era__body { margin-top: 14px; }
 
     /* scannable callout — used on the panels carrying the most weight */
     .panel__highlights {
@@ -446,33 +487,15 @@
       background: var(--accent-border);
     }
 
-    .work__controls {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 20px;
-    }
-    .work__arrow {
-      appearance: none;
-      cursor: pointer;
-      font: inherit;
-      color: var(--text-dim);
-      background: transparent;
-      border: 1px solid var(--card-border);
-      border-radius: 8px;
-      padding: 8px 14px;
-      transition: color 0.18s ease, border-color 0.18s ease;
-    }
-    .work__arrow:hover { color: var(--text-strong); border-color: #3A3A37; }
-    .work__progress {
-      font-size: 13px;
-      color: var(--text-dim);
-      font-variant-numeric: tabular-nums;
-    }
 
     @media (max-width: 640px) {
-      .work__panel { padding: 30px 24px; }
-      .work__era { font-size: 19px; }
+      .work__timeline { padding-left: 0; }
+      .work__timeline::before { display: none; }
+      .era::before { display: none; }
+      .era__summary { padding: 22px 22px; }
+      .era[open] .era__summary { padding-bottom: 12px; }
+      .era__content { padding: 0 22px 24px; }
+      .era__name { font-size: 18px; }
     }
 
     /* ---- Case studies ---- */
@@ -768,7 +791,7 @@
           without a separate implementer.
         </p>
         <p class="about__body">
-          I'm a generalist who connects dots across fields. My deepest interest is in
+          I'm a generalist, and I work across fields that usually stay separate. My deepest interest is in
           problems that are harder than they look, where genuinely understanding what's
           going on matters more than moving fast. Fifteen years of coaching in elite-level
           cheerleading have shaped how I think about accountability, trust, and leading
@@ -788,207 +811,234 @@
         <h2 class="section__title" id="work-title">Work history</h2>
       </div>
 
-      <div class="work__tabs" role="tablist" aria-label="Career eras">
-        <button class="work__tab" role="tab" aria-selected="true"  aria-controls="era-7" id="tab-7">AQVA</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-6" id="tab-6">HAC: The Hard Part</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-5" id="tab-5">HAC: Building</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-4" id="tab-4">Sportiro</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-3" id="tab-3">Hit Hit Pull</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-2" id="tab-2">Cheerleading</button>
-        <button class="work__tab" role="tab" aria-selected="false" aria-controls="era-1" id="tab-1">Formation</button>
-      </div>
+      <div class="work__timeline">
+        <details class="era" open>
+          <summary class="era__summary">
+            <div class="era__ident">
+              <h3 class="era__name">AQVA</h3>
+              <span class="era__dates">2025–2026</span>
+            </div>
+            <p class="era__role">E-Commerce Specialist</p>
+            <p class="era__line">Systems and speed</p>
+            <span class="era__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="era__content">
+            <div class="panel__highlights">
+              <span class="panel__highlights-label">Highlights</span>
+              <ul>
+                <li>Google Search Console reporting and automation across five domains</li>
+                <li>ERP workflow automation built with Playwright</li>
+                <li>Customer service ticket pipeline feeding a RAG chatbot</li>
+                <li>Data scraper replacing a manual collection process</li>
+                <li>Internal go-to for the Refox ERP and ecommerce platform</li>
+              </ul>
+            </div>
+            <p class="era__body">
+              I joined AQVA's ecommerce team through the Saranen E-commerce Academy and found
+              familiar ground quickly. My brief was improving ecommerce performance and working
+              on the brand's international launch. I had done an international launch before,
+              at Sportiro, so I could see immediately that the plan had gaps and the timeline
+              was optimistic. I fixed those first and worked toward a realistic picture of when
+              the launch could actually happen. The four production tools above came out of the
+              same habit: organic search data sat scattered across five domains until it became
+              one view the team could use for decisions, and steps people were doing by hand in
+              the ERP became a workflow that runs unattended. When the chatbot provider was not
+              delivering and not communicating about it, I pushed internally for an ultimatum
+              and, when they could not meet it, for a change of provider.
+            </p>
+          
+          </div>
+        </details>
 
-      <div class="work__viewport">
-        <article class="work__panel is-active" role="tabpanel" id="era-7" aria-labelledby="tab-7">
-          <div class="work__meta">
-            <h3 class="work__era">AQVA</h3>
-            <span class="work__dates">2025–2026</span>
+        <details class="era">
+          <summary class="era__summary">
+            <div class="era__ident">
+              <h3 class="era__name">HAC: The Hard Part</h3>
+              <span class="era__dates">2024</span>
+            </div>
+            <p class="era__role">Executive Director</p>
+            <p class="era__line">Fix it, then hand it over well</p>
+            <span class="era__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="era__content">
+            <div class="panel__highlights">
+              <span class="panel__highlights-label">Highlights</span>
+              <ul>
+                <li>EUR 1M+ annual budget, around 80 coaches and staff across 20+ competition teams</li>
+                <li>Season-long cash flow tracking system built from nothing</li>
+                <li>Budgeting rebuilt on actual athlete numbers instead of projections</li>
+                <li>Members moved from semi-annual to monthly payments</li>
+              </ul>
+            </div>
+            <p class="era__body">
+              The club was in financial crisis when the executive director left. The account
+              was at risk of going negative mid-season. I agreed to take over temporarily,
+              worked the role alongside board members for a few months, and decided to stay
+              after seeing that I could have more impact than an outside hire who would need
+              months to understand the context. The root cause of the financial situation was
+              fixable: there was no real budget tracking, and the budget was built on athlete
+              numbers that were not grounded in anything. I built a cash flow system, changed
+              how budgets were built, basing them on current athletes and teams rather than
+              projections, and moved to monthly member payments to smooth the club's income
+              and reduce the financial pressure on families around Christmas and August. I
+              restructured coaching accountability, changed the inventory model from holding
+              stock to a commission-based supplier arrangement, and spent two years reducing
+              what could go wrong. The workload was unsustainable from the start and I never
+              fully recovered from it. By the time the operational situation was stable, I had
+              learned something important about the limits of what one person can carry. When
+              I left, the club was stable, and the person I handed it to was exactly right for
+              what it needed next: someone to hold steady, not build.
+            </p>
+          
           </div>
-          <p class="work__role">E-Commerce Specialist</p>
-          <p class="work__subtitle">Systems and speed</p>
-          <div class="panel__highlights">
-            <span class="panel__highlights-label">Highlights</span>
-            <ul>
-              <li>Google Search Console reporting and automation across five domains</li>
-              <li>ERP workflow automation built with Playwright</li>
-              <li>Customer service ticket pipeline feeding a RAG chatbot</li>
-              <li>Data scraper replacing a manual collection process</li>
-              <li>Internal go-to for the Refox ERP and ecommerce platform</li>
-            </ul>
-          </div>
-          <p class="work__body">
-            I joined AQVA's ecommerce team through the Saranen E-commerce Academy and found
-            familiar ground quickly. My brief was improving ecommerce performance and working
-            on the brand's international launch. I had done an international launch before,
-            at Sportiro, so I could see immediately that the plan had gaps and the timeline
-            was optimistic. I fixed those first and worked toward a realistic picture of when
-            the launch could actually happen. The four production tools above came out of the
-            same habit: organic search data sat scattered across five domains until it became
-            one view the team could use for decisions, and steps people were doing by hand in
-            the ERP became a workflow that runs unattended. When the chatbot provider was not
-            delivering and not communicating about it, I pushed internally for an ultimatum
-            and, when they could not meet it, for a change of provider.
-          </p>
-        </article>
+        </details>
 
-        <article class="work__panel" role="tabpanel" id="era-6" aria-labelledby="tab-6" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">HAC: The Hard Part</h3>
-            <span class="work__dates">2024</span>
+        <details class="era">
+          <summary class="era__summary">
+            <div class="era__ident">
+              <h3 class="era__name">HAC: Building</h3>
+              <span class="era__dates">2021–2024</span>
+            </div>
+            <p class="era__role">Head of Coaching</p>
+            <p class="era__line">Culture before systems</p>
+            <span class="era__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="era__content">
+            <p class="era__body">
+              I joined Helsinki Athletics Cheerleaders as a coach, started taking on
+              administrative work quickly, and pushed for the head coaching director role when
+              the previous director left. What I inherited was a fragmented post-COVID culture:
+              coaches focused on their own teams rather than the club as a whole. I started
+              with that, not with programs. One early call was shutting down the monthly
+              educational content for coaches because it was not reaching anyone. Before
+              rebuilding anything, I went back to ask whether coaches actually wanted it. From
+              that foundation I built systematic athlete testing, clearer career pathways,
+              compensation structures that made longer coaching careers possible, and
+              standardized planning tools across the club.
+            </p>
+          
           </div>
-          <p class="work__role">Executive Director</p>
-          <p class="work__subtitle">Fix it, then hand it over well</p>
-          <div class="panel__highlights">
-            <span class="panel__highlights-label">Highlights</span>
-            <ul>
-              <li>EUR 1M+ annual budget, around 80 coaches and staff across 20+ competition teams</li>
-              <li>Season-long cash flow tracking system built from nothing</li>
-              <li>Budgeting rebuilt on actual athlete numbers instead of projections</li>
-              <li>Members moved from semi-annual to monthly payments</li>
-            </ul>
-          </div>
-          <p class="work__body">
-            The club was in financial crisis when the executive director left. The account
-            was at risk of going negative mid-season. I agreed to take over temporarily,
-            worked the role alongside board members for a few months, and decided to stay
-            after seeing that I could have more impact than an outside hire who would need
-            months to understand the context. The root cause of the financial situation was
-            fixable: there was no real budget tracking, and the budget was built on athlete
-            numbers that were not grounded in anything. I built a cash flow system, changed
-            how budgets were constructed — based on current athletes and teams, not
-            projections — and moved to monthly member payments to smooth the club's income
-            and reduce the financial pressure on families around Christmas and August. I
-            restructured coaching accountability, changed the inventory model from holding
-            stock to a commission-based supplier arrangement, and spent two years reducing
-            what could go wrong. The workload was unsustainable from the start and I never
-            fully recovered from it. By the time the operational situation was stable, I had
-            learned something important about the limits of what one person can carry. When
-            I left, the club was stable, and the person I handed it to was exactly right for
-            what it needed next: someone to hold steady, not build.
-          </p>
-        </article>
+        </details>
 
-        <article class="work__panel" role="tabpanel" id="era-5" aria-labelledby="tab-5" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">HAC: Building</h3>
-            <span class="work__dates">2021–2024</span>
+        <details class="era">
+          <summary class="era__summary">
+            <div class="era__ident">
+              <h3 class="era__name">Sportiro</h3>
+              <span class="era__dates">2018–2021</span>
+            </div>
+            <p class="era__role">Marketing &amp; E-Commerce Specialist</p>
+            <p class="era__line">Finding what I was good at</p>
+            <span class="era__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="era__content">
+            <div class="panel__highlights">
+              <span class="panel__highlights-label">Highlights</span>
+              <ul>
+                <li>Google Ads conversion rate +66%, conversions +40%, impressions down 29%</li>
+                <li>Led the webshop migration to Shopify</li>
+                <li>International sales across the Nordics and Central Europe built from near zero</li>
+                <li>Email marketing owned end to end in Mailchimp</li>
+              </ul>
+            </div>
+            <p class="era__body">
+              I joined Sportiro, a cheerleading equipment and apparel company, as a generalist
+              and gradually took ownership of the full marketing function. The move happened
+              by doing: I was the person in the room who understood both the sport and the
+              commercial side, and the responsibilities accumulated from there. I migrated the
+              webshop to Shopify, led the growth of international sales across the Nordics and
+              Central Europe, and handled the localization, competitor analysis, delivery
+              logistics, and local advertising that each market required. We also attempted an
+              expansion into Russia during this period, which ended when COVID and subsequent
+              sanctions closed that market. I left when a full-time coaching opportunity came
+              up that felt like a once-in-a-lifetime chance.
+            </p>
+          
           </div>
-          <p class="work__role">Head of Coaching</p>
-          <p class="work__subtitle">Culture before systems</p>
-          <p class="work__body">
-            I joined Helsinki Athletics Cheerleaders as a coach, started taking on
-            administrative work quickly, and pushed for the head coaching director role when
-            the previous director left. What I inherited was a fragmented post-COVID culture:
-            coaches focused on their own teams rather than the club as a whole. I started
-            with that, not with programs. One early call was shutting down the monthly
-            educational content for coaches because it was not reaching anyone. Before
-            rebuilding anything, I went back to ask whether coaches actually wanted it. From
-            that foundation I built systematic athlete testing, clearer career pathways,
-            compensation structures that made longer coaching careers possible, and
-            standardized planning tools across the club.
-          </p>
-        </article>
+        </details>
 
-        <article class="work__panel" role="tabpanel" id="era-4" aria-labelledby="tab-4" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">Sportiro</h3>
-            <span class="work__dates">2018–2021</span>
+        <details class="era">
+          <summary class="era__summary">
+            <div class="era__ident">
+              <h3 class="era__name">Hit Hit Pull</h3>
+              <span class="era__dates">2014–present</span>
+            </div>
+            <p class="era__role">Founder</p>
+            <p class="era__line">Learning what kind of worker I am</p>
+            <span class="era__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="era__content">
+            <p class="era__body">
+              I started the company to invoice for competition music I was already making for
+              cheerleading teams. It grew into a practical vehicle for coaching gigs across
+              clubs, including international work in Sweden, Russia, Belarus, France, Italy,
+              and Austria. The music side I eventually shut down: it was too seasonal,
+              licensing got complicated, and I had hit a ceiling that would have required
+              serious music theory study to push through. I made a clean exit rather than
+              grinding on something that was not growing. The more useful lesson was about
+              myself: I thrive with structure and accountability around me. Going fully
+              independent before I was ready meant the sales and business-building work that
+              needed to happen mostly did not. The company still handles coaching invoicing
+              today.
+            </p>
+          
           </div>
-          <p class="work__role">Marketing &amp; E-Commerce Specialist</p>
-          <p class="work__subtitle">Finding what I was good at</p>
-          <div class="panel__highlights">
-            <span class="panel__highlights-label">Highlights</span>
-            <ul>
-              <li>Google Ads conversion rate +66%, conversions +40%, impressions down 29%</li>
-              <li>Led the webshop migration to Shopify</li>
-              <li>International sales across the Nordics and Central Europe built from near zero</li>
-              <li>Email marketing owned end to end in Mailchimp</li>
-            </ul>
-          </div>
-          <p class="work__body">
-            I joined Sportiro, a cheerleading equipment and apparel company, as a generalist
-            and gradually took ownership of the full marketing function. The move happened
-            by doing: I was the person in the room who understood both the sport and the
-            commercial side, and the responsibilities accumulated from there. I migrated the
-            webshop to Shopify, led the growth of international sales across the Nordics and
-            Central Europe, and handled the localization, competitor analysis, delivery
-            logistics, and local advertising that each market required. We also attempted an
-            expansion into Russia during this period, which ended when COVID and subsequent
-            sanctions closed that market. I left when a full-time coaching opportunity came
-            up that felt like a once-in-a-lifetime chance.
-          </p>
-        </article>
+        </details>
 
-        <article class="work__panel" role="tabpanel" id="era-3" aria-labelledby="tab-3" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">Hit Hit Pull</h3>
-            <span class="work__dates">2014–present</span>
+        <details class="era">
+          <summary class="era__summary">
+            <div class="era__ident">
+              <h3 class="era__name">Cheerleading</h3>
+              <span class="era__dates">2007–present</span>
+            </div>
+            <p class="era__role">Athlete &amp; Coach</p>
+            <p class="era__line">Responsibility for outcomes you don't control</p>
+            <span class="era__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="era__content">
+            <p class="era__body">
+              I came to cheerleading by chance in 2007. A friend introduced me, I tried it,
+              and within two years I was coaching junior teams. I had no formal coaching
+              training at the start and learned on the job, which meant my social skills did
+              a lot of the early work. What the sport taught me is a specific kind of
+              responsibility: as a coach, I am accountable for the safety of athletes doing
+              physically dangerous things, even though I'm not the one doing them. That
+              principle has applied in every leadership role since. I competed on the Finnish
+              National Team throughout, winning multiple European Championship gold medals
+              and World Championship medals. This spring the national team finished 5th at
+              the World Championships, and I captained my team to a 15th national championship
+              title. I grew as a coach in parallel, moved from club level to coaching across
+              Finland, coached the junior national team for two seasons, and spent a year
+              doing education and coaching for the national federation.
+            </p>
+          
           </div>
-          <p class="work__role">Founder</p>
-          <p class="work__subtitle">Learning what kind of worker I am</p>
-          <p class="work__body">
-            I started the company to invoice for competition music I was already making for
-            cheerleading teams. It grew into a practical vehicle for coaching gigs across
-            clubs, including international work in Sweden, Russia, Belarus, France, Italy,
-            and Austria. The music side I eventually shut down: it was too seasonal,
-            licensing got complicated, and I had hit a ceiling that would have required
-            serious music theory study to push through. I made a clean exit rather than
-            grinding on something that was not growing. The more useful lesson was about
-            myself: I thrive with structure and accountability around me. Going fully
-            independent before I was ready meant the sales and business-building work that
-            needed to happen mostly did not. The company still handles coaching invoicing
-            today.
-          </p>
-        </article>
+        </details>
 
-        <article class="work__panel" role="tabpanel" id="era-2" aria-labelledby="tab-2" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">Cheerleading</h3>
-            <span class="work__dates">2007–present</span>
+        <details class="era">
+          <summary class="era__summary">
+            <div class="era__ident">
+              <h3 class="era__name">Formation</h3>
+              <span class="era__dates">Helsinki &amp; France, 1986–2007</span>
+            </div>
+            <p class="era__line">Two cultures, one perspective</p>
+            <span class="era__chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="era__content">
+            <p class="era__body">
+              I grew up moving between Finland and France, which meant I learned early that
+              different cultures aren't just different languages, they run on different
+              operating systems. Finnish reliability became legible as a feature once I'd
+              seen it from the outside, and French culture showed me that life doesn't have
+              to go straight along the rails. By university I was studying marketing at Aalto
+              with social psychology alongside it, not by accident. I started reading
+              psychology in my twenties because I was already curious about how people work.
+              The formal study mostly put a framework on things I was already doing
+              instinctively, including staying calm when a situation calls for panic.
+            </p>
+          
           </div>
-          <p class="work__role">Athlete &amp; Coach</p>
-          <p class="work__subtitle">Responsibility for outcomes you don't control</p>
-          <p class="work__body">
-            I came to cheerleading by chance in 2007. A friend introduced me, I tried it,
-            and within two years I was coaching junior teams. I had no formal coaching
-            training at the start and learned on the job, which meant my social skills did
-            a lot of the early work. What the sport taught me is a specific kind of
-            responsibility: as a coach, I am accountable for the safety of athletes doing
-            physically dangerous things, even though I'm not the one doing them. That
-            principle has applied in every leadership role since. I competed on the Finnish
-            National Team throughout, winning multiple European Championship gold medals
-            and World Championship medals. This spring the national team finished 5th at
-            the World Championships, and I captained my team to a 15th national championship
-            title. I grew as a coach in parallel, moved from club level to coaching across
-            Finland, coached the junior national team for two seasons, and spent a year
-            doing education and coaching for the national federation.
-          </p>
-        </article>
+        </details>
 
-        <article class="work__panel" role="tabpanel" id="era-1" aria-labelledby="tab-1" hidden>
-          <div class="work__meta">
-            <h3 class="work__era">Formation</h3>
-            <span class="work__dates">Helsinki &amp; France, 1986–2007</span>
-          </div>
-          <p class="work__subtitle">Two cultures, one perspective</p>
-          <p class="work__body">
-            I grew up moving between Finland and France, which meant I learned early that
-            different cultures aren't just different languages — they have different
-            operating systems. Finnish reliability became legible as a feature once I'd
-            seen it from the outside, and French culture showed me that life doesn't have
-            to go straight along the rails. By university I was studying marketing at Aalto
-            with social psychology alongside it, not by accident. I started reading
-            psychology in my twenties because I was already curious about how people work.
-            The formal study mostly put a framework on things I was already doing
-            instinctively, including staying calm when a situation calls for panic.
-          </p>
-        </article>
-      </div>
-
-      <div class="work__controls">
-        <button class="work__arrow" id="work-prev" type="button">← Previous</button>
-        <span class="work__progress" id="work-progress" aria-live="polite">1 / 7</span>
-        <button class="work__arrow" id="work-next" type="button">Next →</button>
       </div>
     </section>
 
@@ -1050,8 +1100,8 @@
           <div class="case__content">
           <p class="case__body">
             When I joined Sportiro, a cheerleading equipment and apparel company,
-            international sales were informal — the occasional order from abroad, handled
-            case by case, with no structured approach to any market. By the time I left, the
+            international sales were informal. Orders came in from abroad occasionally and
+            were handled case by case, with no structured approach to any market. By the time I left, the
             company was selling systematically across the Nordics and Central Europe with a
             localized presence in each market.
           </p>
@@ -1061,8 +1111,8 @@
             by country and affected conversion. I ran competitor analysis for each market to
             understand the pricing and positioning landscape before we entered. I adapted the
             Google advertising to run locally, in the language of each market. And I treated
-            localization as a commercial question, not a translation exercise — the tone and
-            framing that worked in Finland did not automatically work in Germany or France.
+            localization as a commercial question rather than a translation exercise. The tone
+            and framing that worked in Finland did not automatically work in Germany or France.
           </p>
           <p class="case__body">
             The growth was significant. We also attempted an expansion into Russia during
@@ -1124,18 +1174,20 @@
             from scratch and used by a private group throughout the tournament. Stack:
             Next.js, Supabase (Postgres, Row Level Security, Realtime), Vercel, and Supabase
             Edge Functions with scheduled jobs. Features include magic link authentication
-            with admin-controlled invites, automatic result polling from external APIs every
-            30 minutes with Telegram group notifications, xG data alongside results, a
-            leaderboard with 12 computed statistics per player including custom metrics, a
-            Telegram bot with multiple commands and personalised pre-match reminders, and
-            live in-app chat via Supabase Realtime. Built with proper security practices
-            throughout.
+            with admin-controlled invites, and a leaderboard carrying 12 computed statistics
+            per player, several of them metrics I defined myself. Results are polled from
+            external APIs every 30 minutes and pushed to the group on Telegram, with xG data
+            shown alongside the scoreline. A Telegram bot handles commands and sends each
+            player a personalised reminder before their matches, and Supabase Realtime drives
+            the in-app chat. Access control is enforced in the database with Row Level
+            Security rather than in the application layer.
           </p>
         </article>
 
         <article class="project">
           <div class="project__head">
             <h3 class="project__title">GymTrack</h3>
+            <a class="project__tag project__tag--link" href="https://demo.gymtrack.hithitpull.fi" target="_blank" rel="noopener noreferrer">Try the demo &rarr;</a>
           </div>
           <p class="project__body">
             An installable workout-tracking web app for iPhone, built around a coaching
@@ -1143,16 +1195,18 @@
             sessions, body weight, and the current plan into a coaching prompt; import the
             structured plan returned by Claude or another AI assistant. Automatic cloud
             sync runs on Cloudflare, and a desktop tool pushes new plans directly to the
-            phone.
+            phone. The linked demo is the real app running on generated training data, and
+            it resets every time the page is reloaded.
           </p>
           <p class="project__body" style="margin-top:12px;">
             The app supports strength training, weighted holds, distance-based exercises,
             treadmill pace, and video-based jump measurement. Reusable movement identities
             connect history across training days while keeping sides and equipment setups
-            separate, with custom weight increments and machine offsets. Features include
+            separate, with custom weight increments and machine offsets. On top of that sit
             supersets, warm-up sets, exercise alternates, rest timers, progression charts,
-            PR detection, body-weight tracking, and session notes. Available in English and
-            Finnish, with full offline support, backup recovery, and clear sync feedback.
+            PR detection, body-weight tracking, and session notes. The interface runs in
+            English and Finnish, works fully offline, recovers from backup, and tells you
+            plainly where sync stands.
             Built with plain JavaScript, HTML, and CSS, without a frontend framework or
             account requirement.
           </p>
@@ -1165,10 +1219,11 @@
           </div>
           <p class="project__body">
             A full-screen photo slideshow that watches a local folder and picks up new photos
-            automatically — built for my 40th birthday party, where guests added photos via a
-            Dropbox QR code and saw them appear on screen in real time. No install, no upload,
-            no subscription. One HTML file opened in Chrome. Born from a half-hour search for
-            an app that didn't exist, solved in two minutes by asking AI to build it instead.
+            automatically. I built it for my 40th birthday party, where guests added photos
+            through a Dropbox QR code and saw them appear on screen within seconds. No install,
+            no upload, no subscription, just one HTML file opened in Chrome. I had spent half
+            an hour looking for an app that did this and found nothing, so I asked AI to build
+            one instead and had it working in two minutes.
             Requires Chrome or Edge on desktop.
           </p>
         </article>
@@ -1208,44 +1263,16 @@
 
     <footer class="footer wrap">
       <p>Henri Haukkovaara · Helsinki · FI / FR / EN · <a href="https://linkedin.com/in/henri-haukkovaara" target="_blank" rel="noopener noreferrer">LinkedIn</a></p>
-      <p>Last updated 8 September 2026</p>
+      <p>Last updated 12 September 2026</p>
     </footer>
   </main>
 
   <script>
-    (function () {
-      const tabs = Array.from(document.querySelectorAll('.work__tab'));
-      const panels = Array.from(document.querySelectorAll('.work__panel'));
-      const progress = document.getElementById('work-progress');
-      const prev = document.getElementById('work-prev');
-      const next = document.getElementById('work-next');
-      const total = tabs.length;
-      let current = 0;
-
-      function show(i) {
-        current = (i + total) % total;
-        tabs.forEach((tab, idx) => {
-          const active = idx === current;
-          tab.setAttribute('aria-selected', active ? 'true' : 'false');
-          panels[idx].classList.toggle('is-active', active);
-          if (active) { panels[idx].removeAttribute('hidden'); }
-          else { panels[idx].setAttribute('hidden', ''); }
-        });
-        progress.textContent = (current + 1) + ' / ' + total;
-      }
-
-      tabs.forEach((tab, idx) => {
-        tab.addEventListener('click', () => show(idx));
-      });
-      prev.addEventListener('click', () => show(current - 1));
-      next.addEventListener('click', () => show(current + 1));
-    })();
-
     /* Scroll reveal */
     (function () {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const targets = document.querySelectorAll(
-        '.section__head, .work__viewport, .work__controls, .case, .project, .edu, .footer'
+        '.section__head, .era, .case, .project, .edu, .footer'
       );
       if (reduce || !('IntersectionObserver' in window)) { return; }
 
